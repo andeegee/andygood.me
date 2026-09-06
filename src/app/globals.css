@@ -44,6 +44,11 @@ button:disabled { cursor: not-allowed; color: var(--slate); background: var(--fo
 .section { padding-block: var(--section-space); }
 .section + .section { border-top: 1px solid var(--steel); }
 .page-stack { display: grid; gap: var(--space-8); justify-items: start; }
+.hero { max-width: 68rem; }
+.hero-eyebrow { font-weight: 600; color: var(--slate); }
+.hero-title { max-width: none; }
+.hero-title span { display: block; text-wrap: balance; }
+.hero-summary { max-width: 52ch; font-size: var(--text-lead); color: var(--slate); }
 .site-header { border-bottom: 1px solid var(--steel); }
 .header-inner { display: flex; align-items: center; justify-content: space-between; gap: var(--space-6); min-height: 5.5rem; padding-block: var(--space-4); flex-wrap: wrap; }
 .site-brand { display: inline-flex; align-items: center; min-height: 2.75rem; flex-shrink: 0; width: clamp(9rem, 17vw, 11rem); max-width: 100%; }

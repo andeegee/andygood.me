@@ -5,10 +5,17 @@ export const metadata = pageMetadata("Andy Good", "/", "[HOMEPAGE META DESCRIPTI
 
 export default function HomePage() {
   return <>
-    <Section aria-labelledby="page-title"><div className="page-stack">
-      <h1 id="page-title">[HOMEPAGE HERO COPY]</h1>
-      <Placeholder>[HOMEPAGE INTRO COPY]</Placeholder>
-      <div className="actions"><ActionLink href="/work/">Work</ActionLink><ActionLink href="/work-with-me/" variant="secondary">Ways to work</ActionLink></div>
+    <Section aria-labelledby="page-title"><div className="page-stack hero">
+      <p className="hero-eyebrow">Senior Content &amp; AI Strategist</p>
+      <h1 id="page-title" className="hero-title">
+        <span>Make complex things clear.</span>{" "}
+        <span>Make clear things convert.</span>
+      </h1>
+      <p className="hero-summary">I help SaaS and technology teams sharpen the message, improve content performance and build smarter systems behind the work.</p>
+      <div className="actions">
+        <ActionLink href="/work-with-me/">Work with me</ActionLink>
+        <ActionLink href="/work/" variant="secondary">View selected work</ActionLink>
+      </div>
     </div></Section>
     <Section aria-labelledby="selected-work"><div className="page-stack"><h2 id="selected-work">[SELECTED WORK]</h2><div className="placeholder-panel"><Placeholder>[SELECTED WORK CONTENT]</Placeholder></div></div></Section>
   </>;
