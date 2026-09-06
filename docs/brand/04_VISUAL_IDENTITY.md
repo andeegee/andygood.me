@@ -121,7 +121,9 @@ Use **Instrument Sans throughout**.
 
 The graphic language is intentionally minimal and non-decorative.
 
-There is currently no Andy Good logo or monogram. Do not invent one.
+Andy supplied and approved `Andy Good_Logo.png` for the website on 6 September 2026. The original asset is stored at `/public/brand/andy-good-logo.png` and is used in the website header and footer.
+
+Use the supplied artwork, including its yellow corner marks, as a complete logo. Its surrounding blank canvas may be framed out for website placement. Do not redraw it, invent a monogram or repeat its corner marks as decorative motifs elsewhere.
 
 Do not use:
 

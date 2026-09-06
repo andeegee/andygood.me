@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useRef, useState } from "react";
 import { navigation } from "@/lib/site";
 import { Button, Container } from "@/components/primitives";
+import { SiteLogo } from "@/components/site-logo";
 
 export function SiteHeader() {
   const pathname = usePathname();
@@ -20,7 +21,7 @@ export function SiteHeader() {
       }
     }}>
       <Container className="header-inner">
-        <Link className="site-name" href="/" aria-label="Andy Good, home" onClick={() => setOpenPath(null)}>Andy Good</Link>
+        <Link className="site-brand" href="/" aria-label="Andy Good, home" onClick={() => setOpenPath(null)}><SiteLogo preload /></Link>
         <Button className="menu-toggle" ref={toggle} aria-expanded={open} aria-controls="primary-navigation" onClick={() => setOpenPath(open ? null : pathname)}>
           {open ? "Close menu" : "Menu"}
         </Button>

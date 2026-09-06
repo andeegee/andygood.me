@@ -45,7 +45,7 @@ All page shells are prerendered. Detail routes use `generateStaticParams` and re
 
 `src/app/globals.css` defines the approved six colours, variable typography, spacing, readable widths, responsive navigation and interaction treatments. `src/components/` contains the header, footer, page and offer shells, container, section, action link, button and placeholder primitives. Only the header needs a client boundary. The mobile menu is a disclosure with `aria-expanded`, normal tab order, Escape handling and closure after navigation; it is not a modal.
 
-The plain-text name is a home link, not a logo. The offer names are taken from the approved offers document and displayed in sentence case. No case studies, claims, results, testimonials, client identities or contact details have been invented. No content backend, analytics, form handler or decorative assets are included.
+The header and footer use Andy's supplied and approved logo as a home link. `SiteLogo` frames the square original using CSS and serves optimised versions through `next/image`; the original PNG is preserved in `public/brand/`. The offer names are taken from the approved offers document and displayed in sentence case. No case studies, claims, results, testimonials, client identities or contact details have been invented. No content backend, analytics or form handler is included.
 
 ## SEO and launch controls
 
