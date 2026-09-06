@@ -81,13 +81,39 @@ test("sitemap, robots and unknown routes", async ({ request }) => {
 });
 
 test("capture foundation layouts", async ({ page }, testInfo) => {
+  test.setTimeout(60000);
   await page.goto("/");
   await page.evaluate(() => document.fonts.ready);
   await page.screenshot({ path: testInfo.outputPath("homepage.png"), fullPage: true });
+  if (testInfo.project.name === "desktop") {
+    for (const width of [1440, 1280, 768, 390, 320]) {
+      await page.setViewportSize({ width, height: 1000 });
+      expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+      await page.screenshot({ path: testInfo.outputPath(`homepage-${width}.png`), fullPage: true });
+      for (const heading of ["page-title", "offers-title", "work-title", "contact-title"]) {
+        await page.locator(`section[aria-labelledby="${heading}"]`).screenshot({ path: testInfo.outputPath(`${heading}-${width}.png`) });
+      }
+    }
+    await page.setViewportSize({ width: 1440, height: 1000 });
+  }
   if (testInfo.project.name === "mobile") {
     await page.getByRole("button", { name: "Menu", exact: true }).click();
     await page.screenshot({ path: testInfo.outputPath("navigation.png"), fullPage: true });
   }
   await page.goto("/work-with-me/");
   await page.screenshot({ path: testInfo.outputPath("ways-to-work.png"), fullPage: true });
+});
+
+test("homepage has complete content and working internal links", async ({ page, request }) => {
+  await page.goto("/");
+  expect(await page.locator("body").innerText()).not.toMatch(/\[[A-Z][A-Z\s,&-]+\]/);
+  for (const selector of ['meta[name="description"]', 'meta[property="og:description"]', 'meta[name="twitter:description"]']) {
+    const value = await page.locator(selector).getAttribute("content");
+    expect(value).toBeTruthy();
+    expect(value).not.toMatch(/\[.*\]/);
+  }
+  const hrefs = await page.locator('a[href^="/"]').evaluateAll((links) =>
+    [...new Set(links.map((link) => link.getAttribute("href")!))],
+  );
+  for (const href of hrefs) expect((await request.get(href)).status()).toBe(200);
 });

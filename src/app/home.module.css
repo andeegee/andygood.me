@@ -1,0 +1,262 @@
+.home p {
+  text-wrap: pretty;
+}
+
+.home h2 span {
+  display: block;
+}
+
+.credibility {
+  padding-block: var(--space-8);
+  border-block: 1px solid var(--steel);
+}
+
+.proofList {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr 1.35fr;
+  gap: var(--space-8);
+  margin: 0;
+}
+
+.proofList > div + div {
+  border-left: 1px solid var(--steel);
+  padding-left: var(--space-8);
+}
+
+.proofList dt {
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -.025em;
+  text-wrap: balance;
+}
+
+.proofList dd {
+  margin: var(--space-3) 0 0;
+  color: var(--slate);
+  max-width: 38ch;
+}
+
+.editorialSplit {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  align-items: start;
+  gap: clamp(2rem, 7vw, 7rem);
+}
+
+.sectionIntro,
+.sectionHeader {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-4);
+}
+
+.sectionIntro h2,
+.finalSection h2 {
+  max-width: 24ch;
+}
+
+.sectionHeader {
+  margin-bottom: var(--space-8);
+}
+
+.eyebrow {
+  color: var(--slate);
+  font-size: var(--text-small);
+  font-weight: 600;
+}
+
+.prose,
+.intro {
+  font-size: 1.125rem;
+  color: var(--slate);
+}
+
+.prose {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-6);
+  max-width: 60ch;
+}
+
+.sectionIntro .prose {
+  margin-top: var(--space-2);
+}
+
+.approaches {
+  list-style: none;
+  padding: 0;
+}
+
+.approaches li {
+  border-top: 1px solid var(--steel);
+  padding-block: var(--space-6);
+}
+
+.approaches li:last-child {
+  padding-bottom: 0;
+}
+
+.approaches p {
+  color: var(--slate);
+  margin-top: var(--space-3);
+  font-size: 1.125rem;
+}
+
+.offer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr) auto;
+  align-items: start;
+  gap: var(--space-8);
+  padding-block: var(--space-8);
+  border-top: 1px solid var(--steel);
+}
+
+.offer h3 {
+  max-width: 25ch;
+  font-size: clamp(1.375rem, 2.2vw, 1.75rem);
+  letter-spacing: -.02em;
+}
+
+.offer p {
+  font-size: 1.125rem;
+  color: var(--slate);
+}
+
+.offer > a {
+  align-self: center;
+}
+
+.offer:last-child {
+  padding-bottom: 0;
+}
+
+.workList {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-8);
+}
+
+.project {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: var(--space-6);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--steel);
+}
+
+.project h3 {
+  font-size: clamp(1.375rem, 2.1vw, 1.75rem);
+  letter-spacing: -.02em;
+}
+
+.project .category {
+  color: var(--slate);
+  font-size: var(--text-small);
+  margin-top: var(--space-2);
+}
+
+.project > p {
+  font-size: 1.125rem;
+  color: var(--slate);
+}
+
+.project > a {
+  margin-top: auto;
+}
+
+.aiSection {
+  background: var(--carbon);
+  color: var(--white);
+}
+
+.aiSection .eyebrow,
+.aiSection .prose {
+  color: var(--steel);
+}
+
+.aiSection .emphasis {
+  color: var(--white);
+  font-weight: 600;
+}
+
+.aiSection .allmi {
+  font-size: var(--text-small);
+  border-top: 1px solid var(--slate);
+  padding-top: var(--space-6);
+}
+
+.aiSection a:focus-visible {
+  outline-color: var(--white);
+}
+
+.finalSection {
+  background: var(--fog);
+}
+
+@media (max-width: 63.99rem) {
+  .editorialSplit {
+    gap: var(--space-8);
+  }
+
+  .offer {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+    gap: var(--space-4) var(--space-8);
+  }
+
+  .offer > a {
+    grid-column: 2;
+    justify-self: start;
+  }
+
+  .workList {
+    grid-template-columns: 1fr;
+  }
+
+  .project {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+    gap: var(--space-4) var(--space-8);
+  }
+
+  .project > a {
+    grid-column: 2;
+    justify-self: start;
+  }
+}
+
+@media (max-width: 47.99rem) {
+  .proofList,
+  .editorialSplit,
+  .offer,
+  .project {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .proofList {
+    gap: var(--space-6);
+  }
+
+  .proofList > div + div {
+    border-left: 0;
+    border-top: 1px solid var(--steel);
+    padding-left: 0;
+    padding-top: var(--space-6);
+  }
+
+  .proofList dd {
+    margin-top: var(--space-2);
+  }
+
+  .sectionIntro h2,
+  .finalSection h2 {
+    max-width: none;
+  }
+
+  .offer > a,
+  .project > a {
+    grid-column: auto;
+    justify-self: start;
+  }
+}
