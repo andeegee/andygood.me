@@ -8,7 +8,9 @@
 
 .credibility {
   padding-block: var(--space-8);
-  border-block: 1px solid var(--steel);
+  border-block: 1px solid var(--carbon);
+  background: var(--carbon);
+  color: var(--white);
 }
 
 .proofList {
@@ -19,7 +21,7 @@
 }
 
 .proofList > div + div {
-  border-left: 1px solid var(--steel);
+  border-left: 1px solid var(--slate);
   padding-left: var(--space-8);
 }
 
@@ -33,7 +35,7 @@
 
 .proofList dd {
   margin: var(--space-3) 0 0;
-  color: var(--slate);
+  color: var(--steel);
   max-width: 38ch;
 }
 
@@ -112,6 +114,10 @@
   border-top: 1px solid var(--steel);
 }
 
+.offersSection {
+  background: var(--fog);
+}
+
 .offer h3 {
   max-width: 25ch;
   font-size: clamp(1.375rem, 2.2vw, 1.75rem);
@@ -166,14 +172,43 @@
   margin-top: auto;
 }
 
+/* Optional real imagery fits the existing composition without empty slots. */
+.project > figure,
+.sectionIntro > figure {
+  margin: 0;
+  width: 100%;
+}
+
+.project > figure {
+  grid-column: 1 / -1;
+}
+
+.sectionIntro > figure {
+  max-width: 24rem;
+}
+
+.project > figure img,
+.sectionIntro > figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 .aiSection {
   background: var(--carbon);
   color: var(--white);
 }
 
-.aiSection .eyebrow,
-.aiSection .prose {
+.aiSection .eyebrow {
   color: var(--steel);
+}
+
+.aiSection h2 {
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+}
+
+.aiSection .prose {
+  color: var(--white);
 }
 
 .aiSection .emphasis {
@@ -183,16 +218,47 @@
 
 .aiSection .allmi {
   font-size: var(--text-small);
+  color: var(--steel);
   border-top: 1px solid var(--slate);
   padding-top: var(--space-6);
 }
 
-.aiSection a:focus-visible {
+.aiSection a:focus-visible,
+.finalSection a:focus-visible {
   outline-color: var(--white);
 }
 
 .finalSection {
-  background: var(--fog);
+  background: var(--carbon);
+  color: var(--white);
+}
+
+.finalSection .prose {
+  color: var(--white);
+}
+
+.finalSection :global(.action--primary):hover {
+  background: var(--white);
+  color: var(--carbon);
+}
+
+/* Scope the shared footer treatment to the homepage, including client navigation. */
+:global(main):has(.home) + :global(.site-footer) {
+  background: var(--carbon);
+  color: var(--white);
+  border-top-color: var(--slate);
+}
+
+:global(main):has(.home) + :global(.site-footer) nav a {
+  color: var(--steel);
+}
+
+:global(main):has(.home) + :global(.site-footer) a:focus-visible {
+  outline-color: var(--white);
+}
+
+:global(main):has(.home) + :global(.site-footer) :global(.site-brand) {
+  background: var(--white);
 }
 
 @media (max-width: 63.99rem) {
@@ -240,7 +306,7 @@
 
   .proofList > div + div {
     border-left: 0;
-    border-top: 1px solid var(--steel);
+    border-top: 1px solid var(--slate);
     padding-left: 0;
     padding-top: var(--space-6);
   }

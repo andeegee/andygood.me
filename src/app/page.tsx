@@ -128,7 +128,7 @@ export default function HomePage() {
         </div>
       </Section>
 
-      <Section aria-labelledby="offers-title">
+      <Section className={styles.offersSection} aria-labelledby="offers-title">
         <header className={styles.sectionHeader}>
           <p className={styles.eyebrow}>Ways to work</p>
           <h2 id="offers-title">Different problems. Same objective.</h2>
@@ -153,6 +153,7 @@ export default function HomePage() {
         <div className={styles.workList}>
           {projects.map(({ name, category, copy }, index) => (
             <article key={name} className={styles.project} aria-labelledby={`project-${index}-title`}>
+              {/* A genuine project image can be added here in a figure. */}
               <header>
                 <h3 id={`project-${index}-title`}>{name}</h3>
                 <p className={styles.category}>{category}</p>
@@ -184,6 +185,7 @@ export default function HomePage() {
           <div className={styles.sectionIntro}>
             <p className={styles.eyebrow}>About Andy</p>
             <h2 id="about-title"><span>Built on marketing judgement.</span>{" "}<span>Not AI novelty.</span></h2>
+            {/* A genuine portrait can sit below this heading in a figure. */}
           </div>
           <div className={styles.prose}>
             <p>I’ve spent 18+ years across advertising, copywriting, content, conversion and digital strategy.</p>
