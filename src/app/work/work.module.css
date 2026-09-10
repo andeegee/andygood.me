@@ -1,0 +1,58 @@
+.work p { text-wrap: pretty; }
+.hero h1 { max-width: none; font-size: clamp(2rem, 4.1vw, 3.625rem); margin-block: 1rem 1.5rem; }
+.hero h1 span { display: block; text-wrap: initial; }
+.summary { font-size: var(--text-lead); color: var(--slate); max-width: 64ch; }
+.eyebrow, .category { color: var(--slate); font-size: var(--text-small); }
+.eyebrow { font-weight: 600; margin-bottom: .75rem; }
+.featureIntro > div { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+.featureIntro > div > p { color: var(--slate); font-size: 1.125rem; }
+.featureIntro { padding-block: 2.5rem; }
+.fog { background: var(--fog); }
+.leadGrid, .featureGrid { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.25fr); gap: clamp(2rem, 4vw, 4rem); align-items: center; }
+.leadGrid { align-items: start; }
+.copy, .prose { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.25rem; justify-items: start; min-width: 0; }
+.copy > a { max-width: 100%; overflow-wrap: anywhere; }
+.copy > p, .prose, .textProject > p { color: var(--slate); font-size: 1.0625rem; }
+.client { font-size: 1.125rem; font-weight: 600; margin-bottom: .25rem; }
+.copy h3 { font-size: clamp(1.625rem, 2.5vw, 2.25rem); letter-spacing: -.025em; line-height: 1.2; }
+.deliverables { width: 100%; border-top: 1px solid var(--steel); padding-top: 1.25rem; margin-top: .5rem; }
+.deliverables > p { font-weight: 600; font-size: .875rem; margin-bottom: .5rem; }
+.deliverables ul { padding-left: 1.1rem; color: var(--slate); }
+.artwork { margin: 0; width: 100%; min-width: 0; }
+.artwork a { display: block; text-decoration: none; }
+.artwork img { width: 100%; height: auto; display: block; }
+.imageLink { display: flex; justify-content: space-between; padding-top: .75rem; font-size: .875rem; color: var(--slate); }
+.artwork a:hover .imageLink { text-decoration: underline; }
+.dark, .final { background: var(--carbon); color: var(--white); }
+.dark .category, .dark .prose, .dark ul, .dark .imageLink { color: var(--steel); }
+.dark .deliverables { border-color: var(--slate); }
+.dark a:focus-visible, .final a:focus-visible { outline-color: var(--white); }
+.reverse { grid-template-columns: minmax(0, 1.25fr) minmax(0, .85fr); }
+.reverse .copy { grid-column: 2; grid-row: 1; }
+.reverse .artwork { grid-column: 1; grid-row: 1; }
+.dreamscapeGrid, .closingGrid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2rem, 6vw, 6rem); }
+.rampGrid > .copy { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: clamp(2rem, 6vw, 6rem); }
+.rampGrid header, .rampGrid h3 { grid-column: 1; }
+.rampGrid .prose { grid-column: 2; grid-row: 1 / 3; }
+.rampGrid .deliverables { grid-column: 2; }
+.rampGrid > .artwork { margin: 2.5rem auto 0; max-width: 848px; }
+.proof { margin: 0; align-self: center; padding: 2rem; background: var(--white); border-top: 3px solid var(--carbon); }
+.proof > div + div { border-top: 1px solid var(--steel); padding-top: 1.5rem; margin-top: 1.5rem; }
+.proof dt { color: var(--slate); font-size: .875rem; margin-bottom: .5rem; }
+.proof dd { margin: 0; font-size: clamp(1.25rem, 2vw, 1.625rem); line-height: 1.35; font-weight: 600; letter-spacing: -.02em; }
+.moreIntro { margin-bottom: 2rem; }
+.support, .textProject { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2rem, 6vw, 6rem); border-top: 1px solid var(--steel); padding-block: 2rem; }
+.support { align-items: center; }
+.support .copy h3, .textProject .copy h3 { font-size: 1.625rem; margin-bottom: .5rem; }
+.moxieArt { max-width: 440px; width: 100%; justify-self: center; border: 1px solid var(--steel); padding: .75rem; }
+.datchArt { width: min(100%, 263px); justify-self: center; }
+.textProject:last-child { padding-bottom: 0; }
+.final .copy > p { color: var(--white); font-size: 1.125rem; }
+.final :global(.action--primary):hover { background: var(--white); color: var(--carbon); }
+@media (max-width: 47.99rem) {
+  .featureIntro > div, .leadGrid, .featureGrid, .rampGrid > .copy, .dreamscapeGrid, .closingGrid, .support, .textProject { grid-template-columns: minmax(0, 1fr); gap: 1.75rem; }
+  .reverse .copy, .reverse .artwork, .rampGrid .prose, .rampGrid .deliverables, .rampGrid header, .rampGrid h3 { grid-column: auto; grid-row: auto; }
+  .hero h1 span { display: inline; }
+  .proof { padding: 1.5rem; }
+  .support { align-items: start; }
+}
