@@ -3,15 +3,17 @@
 import { useRef, useState, type FormEvent } from "react";
 import { assignmentLabels, directionLabels, requirementLabels, searchLabels, toMarkdown, type Result } from "@/lib/content-briefing/schema";
 import styles from "./tool.module.css";
+import { SummaryView } from "./summary-view";
+import { summaryMarkdown } from "./summary";
 
-const tabs = ["Brief", "Evidence", "Gaps & decisions"] as const;
+const tabs = ["Summary", "Full brief", "Evidence", "Gaps & decisions"] as const;
 function Details({ values, labels }: { values: Record<string, string | string[]>; labels: Record<string, string> }) {
   return <dl className={styles.details}>{Object.entries(values).map(([key, value]) => <div key={key}><dt>{labels[key] ?? key}</dt><dd>{Array.isArray(value) ? value.length ? <ul>{value.map((item, i) => <li key={i}>{item}</li>)}</ul> : "None identified." : value || "Not supplied."}</dd></div>)}</dl>;
 }
 
 export function BriefingTool() {
   const [result, setResult] = useState<Result | null>(null);
-  const [tab, setTab] = useState<(typeof tabs)[number]>("Brief");
+  const [tab, setTab] = useState<(typeof tabs)[number]>("Summary");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
@@ -35,16 +37,16 @@ export function BriefingTool() {
       const response = await fetch("/api/content-briefing", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...assignment, sourceText, urls }), signal: abort.current.signal });
       const payload = await response.json();
       if (!response.ok) throw new Error(payload.error || "The briefing could not be completed. Please retry.");
-      setResult(payload); setDirty(false); setTab("Brief");
+      setResult(payload); setDirty(false); setTab("Summary");
       setNotice("Draft ready. Review the evidence and unresolved decisions before use.");
       requestAnimationFrame(() => { output.current?.focus(); output.current?.scrollIntoView({ behavior: "smooth", block: "start" }); });
     } catch (e) { setError(e instanceof Error && e.name !== "AbortError" ? e.message : "The request was cancelled or timed out. Your inputs are still available."); }
     finally { clearTimeout(timeout); setBusy(false); abort.current = null; }
   }
 
-  async function copy() {
+  async function copy(summary = false) {
     if (!result) return;
-    try { await navigator.clipboard.writeText(toMarkdown(result)); setNotice("Brief, evidence and decisions copied as Markdown."); }
+    try { await navigator.clipboard.writeText(summary ? summaryMarkdown(result) : toMarkdown(result)); setNotice(summary ? "Summary copied. Full Markdown export remains available." : "Brief, evidence and decisions copied as Markdown."); }
     catch { setNotice("Clipboard access was unavailable. Download Markdown instead."); }
   }
   function download() {
@@ -74,12 +76,13 @@ export function BriefingTool() {
       </form>
       <section className={styles.output} ref={output} tabIndex={-1} aria-label="Generated content brief" aria-busy={busy}>
         <div role="status" className={styles.notice}>{busy ? "Reading sources, checking evidence and preparing the draft." : notice}</div>
-        {!result ? <div className={styles.empty}><p className={styles.eyebrow}>Your working brief</p><h2>Start with the assignment.<br />Build on the evidence.</h2><p>The output separates source-supported findings, reasonable inference and claims that need evidence.</p><ol><li><strong>Brief</strong><span>Strategic direction and content requirements.</span></li><li><strong>Evidence</strong><span>Findings, source references and quoted support.</span></li><li><strong>Gaps & decisions</strong><span>Missing proof and questions for human judgement.</span></li></ol></div> : <>
-          <div className={styles.outputHeader}><span className={styles.status}>AI draft · Human review required</span><h2>{result.assignment.topic}</h2><p className={styles.muted}>Strategic recommendations require review. “Source-supported” means supported by supplied text, not independently verified.</p><div className="actions"><button type="button" className={styles.smallButton} onClick={copy}>Copy Markdown</button><button type="button" className={styles.smallButton} onClick={download}>Download Markdown</button></div></div>
+        {!result ? <div className={styles.empty}><p className={styles.eyebrow}>Your working brief</p><h2>Start with the assignment.<br />Build on the evidence.</h2><p>The output separates source-supported findings, reasonable inference and claims that need evidence.</p><ol><li><strong>Summary</strong><span>Selected priorities, proof and decisions.</span></li><li><strong>Full brief</strong><span>Strategic direction and content requirements.</span></li><li><strong>Evidence</strong><span>Findings, source references and quoted support.</span></li><li><strong>Gaps & decisions</strong><span>Missing proof and questions for human judgement.</span></li></ol></div> : <>
+          <div className={styles.outputHeader}><span className={styles.status}>AI draft · Human review required</span><h2>{result.assignment.topic}</h2><p className={styles.muted}>Strategic recommendations require review. “Source-supported” means supported by supplied text, not independently verified.</p><div className="actions"><button type="button" className={styles.smallButton} onClick={() => copy(true)}>Copy summary</button><button type="button" className={styles.smallButton} onClick={() => copy()}>Copy Markdown</button><button type="button" className={styles.smallButton} onClick={download}>Download Markdown</button></div></div>
           {dirty && <p className={styles.warning}>The assignment has changed. This draft belongs to the previous submission. Generate a new draft to apply your changes.</p>}
-          <div role="tablist" aria-label="Brief views" className={styles.tabs}>{tabs.map((name, i) => <button key={name} type="button" role="tab" id={`tab-${i}`} aria-controls={`panel-${i}`} aria-selected={tab === name} tabIndex={tab === name ? 0 : -1} onClick={() => setTab(name)} onKeyDown={(event) => { const next = event.key === "ArrowRight" ? (i + 1) % 3 : event.key === "ArrowLeft" ? (i + 2) % 3 : event.key === "Home" ? 0 : event.key === "End" ? 2 : -1; if (next >= 0) { event.preventDefault(); setTab(tabs[next]); document.getElementById(`tab-${next}`)?.focus(); } }}>{name}{name === "Gaps & decisions" ? ` (${result.analysis.gaps.length + result.analysis.findings.filter((f) => f.classification === "Needs evidence").length})` : ""}</button>)}</div>
+          <div role="tablist" aria-label="Brief views" className={styles.tabs}>{tabs.map((name, i) => <button key={name} type="button" role="tab" id={`tab-${i}`} aria-controls={`panel-${i}`} aria-selected={tab === name} tabIndex={tab === name ? 0 : -1} onClick={() => setTab(name)} onKeyDown={(event) => { const next = event.key === "ArrowRight" ? (i + 1) % tabs.length : event.key === "ArrowLeft" ? (i + tabs.length - 1) % tabs.length : event.key === "Home" ? 0 : event.key === "End" ? tabs.length - 1 : -1; if (next >= 0) { event.preventDefault(); setTab(tabs[next]); document.getElementById(`tab-${next}`)?.focus(); } }}>{name}{name === "Gaps & decisions" ? ` (${result.analysis.gaps.length + result.analysis.findings.filter((f) => f.classification === "Needs evidence").length})` : ""}</button>)}</div>
           {tabs.map((name, i) => <div key={name} role="tabpanel" id={`panel-${i}`} aria-labelledby={`tab-${i}`} hidden={tab !== name} tabIndex={0} className={styles.panel}>
-            {name === "Brief" && <><section><h3>Assignment</h3><Details values={Object.fromEntries(Object.keys(assignmentLabels).map((key) => [key, result.assignment[key as keyof typeof assignmentLabels]]))} labels={assignmentLabels} /></section><section><h3>Strategic direction</h3><Details values={result.brief.direction} labels={directionLabels} /></section><section><h3>Content requirements</h3><Details values={{ ...result.brief.requirements, evidenceIds: result.brief.requirements.evidenceIds.map((id) => `${id}: ${result.analysis.findings.find((f) => f.id === id)?.finding ?? "Review evidence"}`) }} labels={requirementLabels} /></section>{result.brief.search && <section><h3>Search / discoverability</h3><Details values={result.brief.search} labels={searchLabels} /></section>}</>}
+            {name === "Summary" && <SummaryView result={result} />}
+            {name === "Full brief" && <><section><h3>Assignment</h3><Details values={Object.fromEntries(Object.keys(assignmentLabels).map((key) => [key, result.assignment[key as keyof typeof assignmentLabels]]))} labels={assignmentLabels} /></section><section><h3>Strategic direction</h3><Details values={result.brief.direction} labels={directionLabels} /></section><section><h3>Content requirements</h3><Details values={{ ...result.brief.requirements, evidenceIds: result.brief.requirements.evidenceIds.map((id) => `${id}: ${result.analysis.findings.find((f) => f.id === id)?.finding ?? "Review evidence"}`) }} labels={requirementLabels} /></section>{result.brief.search && <section><h3>Search / discoverability</h3><Details values={result.brief.search} labels={searchLabels} /></section>}</>}
             {name === "Evidence" && <><h3>Source register</h3>{result.sources.map((source) => <div key={source.id} className={styles.source}><strong>{source.id} · {source.label}</strong>{source.url && /^https?:\/\//.test(source.url) && <a href={source.url} target="_blank" rel="noreferrer">{source.url}</a>}{source.warning && <p className={styles.warning}>{source.warning}</p>}</div>)}<h3>Findings</h3>{!result.analysis.findings.length && <p>No relevant findings identified. Review the gaps before proceeding.</p>}{result.analysis.findings.map((finding) => <article key={finding.id} className={finding.classification === "Needs evidence" ? styles.needs : finding.classification === "Inference" ? styles.inference : styles.finding}><p className={styles.classification}>{finding.id} · {finding.classification}</p><p>{finding.finding}</p>{finding.references.map((ref, index) => <blockquote key={index}><p>“{ref.quote}”</p><cite>{ref.sourceId} · {result.sources.find((s) => s.id === ref.sourceId)?.label}</cite></blockquote>)}{!finding.references.length && <p className={styles.help}>No verified source quotation.</p>}</article>)}</>}
             {name === "Gaps & decisions" && <><h3>Review before approval</h3>{result.analysis.findings.filter((f) => f.classification === "Needs evidence").map((f) => <article key={f.id} className={styles.needs}><p className={styles.classification}>{f.id} · Needs evidence</p><p>{f.finding}</p></article>)}{result.analysis.gaps.map((gap, index) => <article key={index} className={styles.needs}><p className={styles.classification}>{gap.kind}</p><p>{gap.detail}</p><p><strong>Next step:</strong> {gap.nextStep}</p></article>)}{!result.analysis.gaps.length && <p>No specific gaps were identified. Human review is still required.</p>}</>}
           </div>)}

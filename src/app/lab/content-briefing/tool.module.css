@@ -23,7 +23,7 @@
 .outputHeader { padding-block: 1.5rem; display: grid; gap: 1rem; }
 .status { justify-self: start; border-left: 4px solid var(--signal-yellow); background: var(--fog); padding: .4rem .75rem; font-size: .875rem; font-weight: 600; }
 .smallButton { border: 1px solid var(--carbon); border-radius: 0; background: var(--white); padding: .5rem .75rem; min-height: 2.75rem; font-weight: 600; font-size: .875rem; }
-.tabs { display: flex; border-bottom: 1px solid var(--steel); gap: .5rem; }
+.tabs { display: flex; flex-wrap: wrap; border-bottom: 1px solid var(--steel); gap: .5rem; }
 .tabs button { border: 0; border-bottom: 3px solid transparent; border-radius: 0; background: var(--white); color: var(--slate); padding: .75rem .6rem; font-weight: 600; min-height: 2.75rem; }
 .tabs button[aria-selected="true"] { color: var(--carbon); border-bottom-color: var(--carbon); background: var(--fog); }
 .panel { padding-block: 1.5rem; overflow-wrap: anywhere; }
@@ -42,5 +42,23 @@
 .classification { font-size: .875rem; font-weight: 700; }
 .panel blockquote { margin: 0; padding-left: 1rem; border-left: 1px solid var(--steel); font-size: .875rem; }
 .panel cite { display: block; color: var(--slate); font-style: normal; margin-top: .5rem; }
+.summary { max-width: 65ch; }
+.summary > .help { margin-bottom: 1.25rem; }
+.summary h3 { display: flex; align-items: baseline; flex-wrap: wrap; gap: .5rem; font-size: 1.125rem; }
+.summaryFields { display: grid; gap: .65rem; margin: .85rem 0 0; }
+.summaryFields > div { display: grid; grid-template-columns: minmax(7rem, 30%) minmax(0, 1fr); gap: 1rem; }
+.summaryFields dt, .summaryLabel { font-size: .875rem; font-weight: 600; color: var(--slate); }
+.summaryFields dd { margin: 0; }
+.summaryList { list-style: none; padding: 0; margin-top: .85rem; display: grid; gap: .85rem; }
+.summaryLabel { display: block; margin-bottom: .15rem; }
+.evidenceStatus { font-size: .75rem; font-weight: 500; color: var(--slate); }
+.summaryGaps h3 { border-left: 3px solid var(--signal-yellow); padding-left: .65rem; }
+.summaryOutline { padding-left: 1.3rem; margin: .85rem 0 0; display: grid; gap: .5rem; }
+.excerpt summary, .nextStep summary { cursor: pointer; }
+.excerpt summary span { font-size: .875rem; text-decoration: underline; color: var(--slate); }
+.excerpt[open] summary { color: var(--slate); }
+.excerpt[open] > p { margin-top: .5rem; }
+.nextStep { margin-top: .25rem; font-size: .875rem; }
+@media (max-width: 35rem) { .summaryFields > div { grid-template-columns: 1fr; gap: .15rem; } }
 @media (max-width: 55rem) { .layout { grid-template-columns: 1fr; gap: 2rem; } .intro { margin-bottom: 2rem; } }
 @media (max-width: 25rem) { .tabs { gap: 0; } .tabs button { padding-inline: .35rem; font-size: .875rem; } }
