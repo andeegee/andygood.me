@@ -5,6 +5,7 @@ import { assignmentLabels, directionLabels, requirementLabels, searchLabels, toM
 import styles from "./tool.module.css";
 import { SummaryView } from "./summary-view";
 import { summaryMarkdown } from "./summary";
+import { GenerationProgress } from "./generation-progress";
 
 const tabs = ["Summary", "Full brief", "Evidence", "Gaps & decisions"] as const;
 function Details({ values, labels }: { values: Record<string, string | string[]>; labels: Record<string, string> }) {
@@ -19,10 +20,13 @@ export function BriefingTool() {
   const [notice, setNotice] = useState("");
   const [dirty, setDirty] = useState(false);
   const output = useRef<HTMLElement>(null);
+  const errorMessage = useRef<HTMLParagraphElement>(null);
   const abort = useRef<AbortController | null>(null);
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    // The ref locks synchronously, including submissions before React re-renders.
+    if (abort.current) return;
     const data = new FormData(event.currentTarget);
     const assignment = Object.fromEntries(Object.keys(assignmentLabels).map((key) => [key, String(data.get(key) ?? "").trim()]));
     const sourceText = String(data.get("sourceText") ?? "").trim();
@@ -31,16 +35,21 @@ export function BriefingTool() {
     if (urls.length > 5) { setError("Use no more than five public URLs."); return; }
     if (urls.some((url) => { try { return !["http:", "https:"].includes(new URL(url).protocol); } catch { return true; } })) { setError("Enter a complete HTTP or HTTPS URL on each line."); return; }
     setBusy(true); setError(""); setNotice("");
-    abort.current = new AbortController();
-    const timeout = setTimeout(() => abort.current?.abort(), 165000);
+    const controller = new AbortController();
+    abort.current = controller;
+    const timeout = setTimeout(() => controller.abort(), 165000);
     try {
-      const response = await fetch("/api/content-briefing", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...assignment, sourceText, urls }), signal: abort.current.signal });
+      const response = await fetch("/api/content-briefing", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...assignment, sourceText, urls }), signal: controller.signal });
       const payload = await response.json();
+      controller.signal.throwIfAborted();
       if (!response.ok) throw new Error(payload.error || "The briefing could not be completed. Please retry.");
       setResult(payload); setDirty(false); setTab("Summary");
       setNotice("Draft ready. Review the evidence and unresolved decisions before use.");
-      requestAnimationFrame(() => { output.current?.focus(); output.current?.scrollIntoView({ behavior: "smooth", block: "start" }); });
-    } catch (e) { setError(e instanceof Error && e.name !== "AbortError" ? e.message : "The request was cancelled or timed out. Your inputs are still available."); }
+      requestAnimationFrame(() => { output.current?.focus(); output.current?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth", block: "start" }); });
+    } catch (e) {
+      setError(e instanceof Error && e.name !== "AbortError" ? e.message : "The request was cancelled or timed out. Your inputs are still available.");
+      requestAnimationFrame(() => errorMessage.current?.focus());
+    }
     finally { clearTimeout(timeout); setBusy(false); abort.current = null; }
   }
 
@@ -70,12 +79,12 @@ export function BriefingTool() {
           <label htmlFor="urls">Public URLs<textarea id="urls" name="urls" rows={4} maxLength={10244} aria-describedby="url-limit" placeholder="https://example.com/research" /></label><p id="url-limit" className={styles.help}>One per line, up to five. The first 20,000 characters of each usable page are analysed. For restricted pages or PDFs, paste the relevant text.</p>
           <label htmlFor="notes">Additional notes / constraints (optional)<textarea id="notes" name="notes" rows={4} maxLength={5000} /></label>
         </fieldset>
-        {error && <p className={styles.warning} role="alert">{error}</p>}
-        <div className="actions"><button className="action action--primary" type="submit" disabled={busy}>{busy ? "Analysing sources and building brief…" : result ? "Generate a new draft" : "Generate draft brief"}</button>{busy && <button className="action action--secondary" type="button" onClick={() => abort.current?.abort()}>Cancel</button>}</div>
+        {error && <p ref={errorMessage} tabIndex={-1} className={styles.warning} role="alert">{error}</p>}
+        {busy ? <GenerationProgress onCancel={() => abort.current?.abort()} /> : <div className="actions"><button className="action action--primary" type="submit">{result ? "Generate a new draft" : "Generate draft brief"}</button></div>}
         <p className={styles.help}>Generation can take up to three minutes. Review source rights and confidentiality before submitting.</p>
       </form>
       <section className={styles.output} ref={output} tabIndex={-1} aria-label="Generated content brief" aria-busy={busy}>
-        <div role="status" className={styles.notice}>{busy ? "Reading sources, checking evidence and preparing the draft." : notice}</div>
+        <div role="status" className={styles.notice}>{notice}</div>
         {!result ? <div className={styles.empty}><p className={styles.eyebrow}>Your working brief</p><h2>Start with the assignment.<br />Build on the evidence.</h2><p>The output separates source-supported findings, reasonable inference and claims that need evidence.</p><ol><li><strong>Summary</strong><span>Selected priorities, proof and decisions.</span></li><li><strong>Full brief</strong><span>Strategic direction and content requirements.</span></li><li><strong>Evidence</strong><span>Findings, source references and quoted support.</span></li><li><strong>Gaps & decisions</strong><span>Missing proof and questions for human judgement.</span></li></ol></div> : <>
           <div className={styles.outputHeader}><span className={styles.status}>AI draft · Human review required</span><h2>{result.assignment.topic}</h2><p className={styles.muted}>Strategic recommendations require review. “Source-supported” means supported by supplied text, not independently verified.</p><div className="actions"><button type="button" className={styles.smallButton} onClick={() => copy(true)}>Copy summary</button><button type="button" className={styles.smallButton} onClick={() => copy()}>Copy Markdown</button><button type="button" className={styles.smallButton} onClick={download}>Download Markdown</button></div></div>
           {dirty && <p className={styles.warning}>The assignment has changed. This draft belongs to the previous submission. Generate a new draft to apply your changes.</p>}

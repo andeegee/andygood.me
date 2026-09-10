@@ -15,6 +15,14 @@
 .output { min-width: 0; border-top: 2px solid var(--carbon); scroll-margin-top: 1rem; }
 .notice { color: var(--slate); font-size: .875rem; }
 .notice:not(:empty) { padding-block: 1rem; }
+.progress { display: grid; gap: .65rem; padding: 1rem; background: var(--fog); color: var(--carbon); border: 1px solid var(--steel); font-size: .875rem; }
+.progressMessage { font-size: 1rem; font-weight: 600; min-height: 3em; line-height: 1.5; }
+.progressExplanation { font-size: .8125rem; }
+.progress > button { justify-self: start; margin-top: .25rem; }
+.progressBar { height: 3px; overflow: hidden; background: var(--steel); }
+.progressBar > span { display: block; height: 100%; width: 30%; background: var(--signal-yellow); animation: working 2.4s ease-in-out infinite alternate; }
+@keyframes working { from { transform: translateX(0); } to { transform: translateX(233%); } }
+@media (prefers-reduced-motion: reduce) { .progressBar > span { animation: none; transform: none; } }
 .empty { background: var(--fog); padding: clamp(1.25rem, 3vw, 2.5rem); display: grid; gap: 1.5rem; }
 .empty h2 { font-size: clamp(1.5rem, 2.5vw, 2rem); }
 .empty ol { padding-left: 1.25rem; margin: 0; }
