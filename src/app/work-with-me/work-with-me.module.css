@@ -1,0 +1,54 @@
+.page { font-size: 1.0625rem; }
+.hero, .offer, .boundary, .principles, .closing { padding-block: clamp(2.5rem, 5vw, 4rem); }
+.eyebrow { font-size: .9375rem; font-weight: 600; margin-bottom: 1.5rem; }
+.hero .eyebrow { border-bottom: 3px solid var(--signal-yellow); width: fit-content; padding-bottom: .5rem; }
+.hero h1 { max-width: 19ch; font-size: clamp(2.5rem, 5vw, 4.5rem); }
+.heroCopy { display: grid; grid-template-columns: 1.4fr 1fr; gap: 4rem; margin-top: 2rem; align-items: end; }
+.prose { display: grid; gap: 1rem; }
+.heroCopy .prose { gap: .5rem; color: var(--slate); }
+.heroConclusion { font-weight: 500; max-width: 34ch; font-size: 1.25rem; }
+.offer { border-top: 1px solid var(--steel); }
+.offerHeading, .offerBody { display: grid; grid-template-columns: 1.15fr 1fr; gap: clamp(2rem, 6vw, 6rem); }
+.offerHeading { align-items: start; margin-bottom: 2rem; }
+.offerHeading h2 { font-size: clamp(2rem, 3.1vw, 2.875rem); max-width: 23ch; }
+.lead { font-size: clamp(1.1875rem, 1.8vw, 1.375rem); font-weight: 500; line-height: 1.5; display: grid; gap: .5rem; }
+.offerBody .prose, .scope ul { color: var(--slate); }
+.scope h3, .note h3 { font-size: 1.0625rem; margin-bottom: .75rem; }
+.scope ul { padding-left: 1.2rem; display: grid; gap: .5rem; }
+.scope li { padding-left: .25rem; }
+.note { border-left: 2px solid var(--steel); padding-left: 1.25rem; margin-top: 1.5rem; display: grid; gap: .5rem; }
+.note h3 { margin-bottom: 0; }
+.offerFooter { border-top: 1px solid var(--steel); padding-top: 1.5rem; margin-top: 2rem; display: flex; justify-content: space-between; align-items: center; gap: 2rem; }
+.offerFooter p { max-width: 57ch; font-size: 1rem; }
+.offerFooter strong { display: block; margin-bottom: .25rem; }
+.offerLink { flex-shrink: 0; max-width: 100%; font-size: 1rem; }
+.dark { background: var(--carbon); color: var(--white); }
+.dark .eyebrow, .dark .offerBody .prose, .dark .scope ul { color: var(--steel); }
+.dark .offerLink { border-color: var(--steel); background: transparent; color: var(--white); }
+.dark .offerLink:hover { background: var(--white); color: var(--carbon); }
+.dark :focus-visible { outline-color: var(--signal-yellow); }
+.boundary { background: var(--fog); }
+.boundaryGrid { display: grid; grid-template-columns: 1fr 1.3fr; gap: clamp(2rem, 6vw, 6rem); }
+.boundaryGrid h2 { max-width: 20ch; }
+.secondary { color: var(--slate); font-size: 1rem; border-top: 1px solid var(--steel); padding-top: 1rem; }
+.principleGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.75rem 4rem; margin-top: 2rem; }
+.principleGrid > div { border-top: 1px solid var(--steel); padding-top: 1.25rem; }
+.principleGrid h3 { font-size: 1.1875rem; margin-bottom: .75rem; }
+.principleGrid p { color: var(--slate); }
+.closing h2 { font-size: clamp(2rem, 3.5vw, 3rem); margin-bottom: 1.25rem; }
+.closing .prose { color: var(--steel); gap: .5rem; }
+.contactLink { margin-top: 1.75rem; max-width: 100%; overflow-wrap: anywhere; }
+.contactLink:hover { background: var(--white); color: var(--carbon); }
+@media (max-width: 60rem) {
+  .offerFooter { align-items: start; flex-direction: column; gap: 1.25rem; }
+  .heroCopy { gap: 2rem; }
+}
+@media (max-width: 47.99rem) {
+  .heroCopy, .offerHeading, .offerBody, .boundaryGrid, .principleGrid { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
+  .heroConclusion { max-width: 100%; font-size: 1.125rem; }
+  .offerHeading { margin-bottom: 1.5rem; }
+  .offerHeading h2 { max-width: 24ch; }
+  .eyebrow { margin-bottom: 1.125rem; }
+  .scope { border-top: 1px solid var(--steel); padding-top: 1.5rem; }
+  .offerLink { width: 100%; }
+}
