@@ -10,7 +10,7 @@
 .heroCopy > p:not(.eyebrow) { max-width: 49ch; font-size: 1.0625rem; color: var(--slate); }
 .heroCopy > p.intro { font-size: clamp(1.125rem, 1.5vw, 1.25rem); color: var(--carbon); margin-bottom: 1.25rem; }
 /* Scale the original transparent canvas without cropping or image effects. */
-.portrait { min-width: 0; padding-top: 1.5rem; }
+.portrait { min-width: 0; width: min(70%, 24rem); justify-self: center; padding-top: 1.5rem; }
 .portrait img { width: 100%; height: auto; display: block; }
 .editorial { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(2rem, 7vw, 6rem); align-items: start; }
 .editorial > h2 { max-width: 20ch; }
@@ -51,7 +51,7 @@
   .heroGrid { gap: 0; }
   .heroCopy { padding-block: 2.5rem 1rem; }
   .hero h1 { font-size: clamp(1.875rem, 7.7vw, 3.25rem); margin-bottom: 1.5rem; }
-  .portrait { width: min(100%, 25rem); justify-self: center; padding-top: .5rem; }
+  .portrait { width: min(70%, 18rem); padding-top: .5rem; }
   .editorial > h2 { max-width: 24ch; }
   .principlesTitle { margin-bottom: 1.75rem; }
   .proof dl { gap: 1.25rem; }
