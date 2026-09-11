@@ -35,7 +35,7 @@ test("empty, private, inaccessible, timed-out and sign-in pages fail before anal
 test("every observation must carry a matching page quote", () => {
   expect(checkReport(structuredClone(report), sourceText)).toEqual(report);
   const forged = structuredClone(report); forged.visibility.recommendedImprovement.quote = "An invented piece of evidence";
-  expect(() => checkReport(forged, sourceText)).toThrow("verify");
+  expect(() => checkReport(forged, sourceText)).toThrow("validate");
 });
 
 test("structured model pipeline rejects errors, refusal, truncation, invalid schema and invented evidence", async () => {
@@ -55,7 +55,7 @@ test("structured model pipeline rejects errors, refusal, truncation, invalid sch
     expect(await analyse(scanInput, page, new AbortController().signal)).toEqual(report);
     const forged = structuredClone(report); forged.fixFirst.quote = "Invented source evidence";
     for (const response of [new Response("failed", { status: 500 }), Response.json({ choices: [{ finish_reason: "length", message: { content: "{}" } }] }), Response.json({ choices: [{ finish_reason: "stop", message: { refusal: "no" } }] }), ...["invalid", "{}", JSON.stringify(forged)].map((content) => Response.json({ choices: [{ finish_reason: "stop", message: { content } }] }))]) {
-      globalThis.fetch = async () => response;
+      globalThis.fetch = async () => response.clone();
       await expect(analyse(scanInput, page, new AbortController().signal)).rejects.toThrow();
     }
   } finally { globalThis.fetch = original; process.env = env; }
