@@ -2,9 +2,9 @@ import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
 const routes = [
-  ["Explore strategic projects", "/work-with-me/content-messaging-conversion/", "Content, Messaging & Conversion Strategy"],
-  ["Explore fractional strategy", "/work-with-me/fractional-content-ai-strategy/", "Fractional Content & AI Strategy"],
-  ["Explore AI-enabled content systems", "/work-with-me/ai-enabled-content-systems/", "AI-Enabled Content Systems"],
+  ["Explore strategic projects", "/work-with-me/content-messaging-conversion/", "Fix the thinking before you fix the copy."],
+  ["Explore fractional strategy", "/work-with-me/fractional-content-ai-strategy/", "Senior content leadership without another full-time hire."],
+  ["Explore AI-enabled content systems", "/work-with-me/ai-enabled-content-systems/", "AI won’t fix a broken content operation."],
 ];
 
 test("ways to work links reach the three intended offers", async ({ page }) => {

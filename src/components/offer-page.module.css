@@ -1,0 +1,60 @@
+.page { font-size: 1.0625rem; overflow-wrap: anywhere; }
+.hero, .section { padding-block: clamp(2.5rem, 4.5vw, 4rem); }
+.hero { padding-top: 1.25rem; }
+.back { font-size: .9375rem; color: var(--slate); margin-bottom: 1.75rem; }
+.eyebrow { font-size: .9375rem; font-weight: 600; margin-bottom: 1rem; }
+.hero .eyebrow { border-left: 3px solid var(--signal-yellow); padding-left: .75rem; }
+.hero h1 { max-width: 21ch; font-size: clamp(2.375rem, 4.6vw, 4.25rem); }
+.heroDetails { margin-top: 1.75rem; }
+.project .heroDetails { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 6vw, 6rem); }
+.lead { font-size: clamp(1.1875rem, 1.8vw, 1.375rem); color: var(--carbon); max-width: 55ch; }
+.fractional .hero h1 { max-width: 24ch; }
+.systems .hero h1 { max-width: 22ch; }
+.systems .lead { max-width: 64ch; }
+.systems .lead .prose p:first-child { color: var(--carbon); font-size: clamp(1.375rem, 2.2vw, 1.75rem); font-weight: 500; }
+.prose { display: grid; gap: .875rem; }
+.prose p, .area p, .stages p { color: var(--slate); }
+.lead .prose p { color: inherit; }
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 2rem; margin-top: 1.75rem; }
+.page :global(.action) { max-width: 100%; }
+.section { border-top: 1px solid var(--steel); }
+.sectionGrid { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(2rem, 6vw, 6rem); }
+.sectionGrid h2 { font-size: clamp(1.75rem, 2.7vw, 2.5rem); max-width: 24ch; }
+.sectionBody { min-width: 0; }
+.fog { background: var(--fog); }
+.dark { background: var(--carbon); color: var(--white); }
+.dark .prose p, .dark .stages p { color: var(--steel); }
+.dark :focus-visible { outline-color: var(--signal-yellow); }
+.wide .sectionGrid { grid-template-columns: minmax(0, 1fr); gap: 2rem; }
+.wide .sectionGrid h2 { max-width: 32ch; }
+.areas { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1.5rem 4rem; }
+.area { border-top: 1px solid var(--steel); padding-top: 1.125rem; }
+.area h3, .stages h3 { font-size: 1.1875rem; margin-bottom: .5rem; }
+.fractional .areas { display: block; }
+.fractional .area { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(2rem, 6vw, 6rem); padding-block: 1.125rem; }
+.fractional .area:last-child { padding-bottom: 0; }
+.fractional .area h3 { max-width: 28ch; margin: 0; }
+.systems .areas { column-gap: 5rem; }
+.fitList { padding-left: 1.125rem; display: grid; gap: .875rem; }
+.fitList li { padding-left: .375rem; }
+.statement { margin-top: 1.5rem; border-left: 2px solid var(--steel); padding-left: 1.25rem; font-weight: 500; font-size: 1.1875rem; }
+.dark .statement { border-color: var(--signal-yellow); font-size: clamp(1.375rem, 2vw, 1.625rem); }
+.related { margin-top: 1.25rem; display: flex; flex-direction: column; align-items: start; gap: .5rem; font-size: 1rem; }
+.related :global(.action) { text-align: left; justify-content: start; }
+.stages { padding: 0; margin: 0; list-style: none; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 2rem 4rem; }
+.stages li { border-top: 1px solid var(--slate); padding-top: 1.25rem; display: grid; grid-template-columns: 2rem minmax(0, 1fr); gap: 1rem; }
+.number { color: var(--steel); font-size: .9375rem; font-weight: 600; }
+.closing h2 { max-width: 30ch; font-size: clamp(2rem, 3.3vw, 3rem); }
+.closing .prose { margin-top: 1.25rem; }
+.closing .primary { margin-top: 1.75rem; }
+.dark .primary:hover { background: var(--white); color: var(--carbon); }
+@media (max-width: 47.99rem) {
+  .sectionGrid, .project .heroDetails, .areas, .fractional .area, .stages { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
+  .fractional .area { gap: .5rem; }
+  .back { margin-bottom: 1.25rem; }
+  .hero h1, .fractional .hero h1, .systems .hero h1 { max-width: 24ch; }
+  .sectionGrid h2 { max-width: 28ch; }
+  .wide .sectionGrid { gap: 1.5rem; }
+  .actions { gap: .75rem 1.5rem; }
+  .stages li { gap: .75rem; }
+}
