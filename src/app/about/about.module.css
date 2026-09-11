@@ -1,0 +1,60 @@
+.about p { text-wrap: pretty; }
+.section { padding-block: clamp(3rem, 6vw, 5rem); }
+.hero { border-bottom: 1px solid var(--steel); }
+.heroGrid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 2rem; align-items: end; }
+.heroCopy { align-self: center; padding-block: 4rem; }
+.eyebrow { display: flex; align-items: center; gap: .75rem; color: var(--slate); font-size: .875rem; font-weight: 600; margin-bottom: 1.5rem; }
+.eyebrow::before { content: ""; width: 1.75rem; height: 3px; background: var(--signal-yellow); }
+.hero h1 { max-width: none; font-size: clamp(2rem, 4.1vw, 3.625rem); margin-bottom: 2rem; }
+.hero h1 span { display: block; text-wrap: initial; }
+.heroCopy > p:not(.eyebrow) { max-width: 49ch; font-size: 1.0625rem; color: var(--slate); }
+.heroCopy > p.intro { font-size: clamp(1.125rem, 1.5vw, 1.25rem); color: var(--carbon); margin-bottom: 1.25rem; }
+/* Scale the original transparent canvas without cropping or image effects. */
+.portrait { min-width: 0; padding-top: 1.5rem; }
+.portrait img { width: 100%; height: auto; display: block; }
+.editorial { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(2rem, 7vw, 6rem); align-items: start; }
+.editorial > h2 { max-width: 20ch; }
+.prose { display: grid; gap: 1.25rem; font-size: 1.0625rem; max-width: 57ch; }
+.prose > p { color: var(--slate); }
+.questions { display: grid; gap: .875rem; border-block: 1px solid var(--steel); padding-block: 1.5rem; margin-block: .25rem; font-weight: 500; }
+.positioning { display: grid; gap: .75rem; font-size: 1.1875rem; font-weight: 500; margin-top: .5rem; }
+.dark { background: var(--carbon); color: var(--white); }
+.pair { display: grid; gap: .5rem; }
+.pair + .pair { margin-top: .5rem; }
+.insight { border-top: 1px solid var(--steel); padding-top: 1.5rem; margin-top: .5rem; display: grid; gap: .5rem; }
+.insight p:last-child { font-size: 1.375rem; font-weight: 600; line-height: 1.4; }
+.principlesTitle { max-width: 25ch; margin-bottom: 2.5rem; }
+.principles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(2rem, 7vw, 6rem); }
+.principle { border-top: 1px solid var(--steel); padding-block: 1.5rem; }
+.principle h3 { font-size: 1.25rem; margin-bottom: .75rem; }
+.principle p { color: var(--slate); max-width: 53ch; }
+.execution { font-size: 1.125rem; font-weight: 500; margin-top: 1rem; max-width: none; }
+.proof { background: var(--fog); padding-block: 2rem; }
+.proof dl { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 0; gap: 2rem; }
+.proof dl > div + div { border-left: 1px solid var(--steel); padding-left: 2rem; }
+.proof dt { font-size: 1.25rem; font-weight: 650; line-height: 1.35; margin-bottom: .5rem; }
+.proof dd { margin: 0; color: var(--slate); font-size: .9375rem; max-width: 33ch; }
+.allmiLink { justify-self: start; display: inline-flex; align-items: center; min-height: 2.75rem; font-weight: 600; }
+.final h2 { max-width: 33ch; font-size: clamp(1.75rem, 3.4vw, 3rem); margin-bottom: 2rem; }
+.final a:focus-visible { outline-color: var(--white); }
+.final a { max-width: 100%; overflow-wrap: anywhere; }
+.final a:hover { background: var(--white); color: var(--carbon); }
+@media (max-width: 63.99rem) {
+  .heroGrid { gap: 1rem; }
+  .heroCopy { padding-block: 3rem; }
+  .editorial { grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: 2rem; }
+  .proof dl { gap: 1.25rem; }
+  .proof dl > div + div { padding-left: 1.25rem; }
+}
+@media (max-width: 47.99rem) {
+  .heroGrid, .editorial, .principles, .proof dl { grid-template-columns: minmax(0, 1fr); }
+  .heroGrid { gap: 0; }
+  .heroCopy { padding-block: 2.5rem 1rem; }
+  .hero h1 { font-size: clamp(1.875rem, 7.7vw, 3.25rem); margin-bottom: 1.5rem; }
+  .portrait { width: min(100%, 25rem); justify-self: center; padding-top: .5rem; }
+  .editorial > h2 { max-width: 24ch; }
+  .principlesTitle { margin-bottom: 1.75rem; }
+  .proof dl { gap: 1.25rem; }
+  .proof dl > div + div { border-left: 0; padding-left: 0; border-top: 1px solid var(--steel); padding-top: 1.25rem; }
+  .proof dd { max-width: 45ch; }
+}
