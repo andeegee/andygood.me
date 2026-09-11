@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 import { inputSchema, emailSchema, reportSchema } from "../../src/lib/friction-scan/schema";
 import { analyse, checkReport, extractPage } from "../../src/lib/friction-scan/analysis";
 import { seal, unseal } from "../../src/lib/friction-scan/token";
-import { deliver, renderReport, resend, type EmailProvider } from "../../src/lib/friction-scan/email";
+import { deliver, renderReport, renderLead, resend, type EmailProvider } from "../../src/lib/friction-scan/email";
 import { fingerprint, rateLimit, redis } from "../../src/lib/friction-scan/controls";
 import { report, scanInput, sourceText } from "./friction-fixture";
 
@@ -14,6 +14,9 @@ test("scan input and email validation reject missing, malformed, unsafe and exce
   expect(emailSchema.parse({ email: " Visitor@Example.com ", token: "x".repeat(30) }).email).toBe("visitor@example.com");
   expect(reportSchema.safeParse({ ...report, frictionPoints: report.frictionPoints.slice(0, 2) }).success).toBe(false);
   expect(reportSchema.safeParse({ ...report, status: "90" }).success).toBe(false);
+  for (const field of Object.keys(report)) {
+    expect(reportSchema.safeParse({ ...report, [field]: undefined }).success).toBe(false);
+  }
 });
 
 test("extraction keeps CTA/header text, removes hidden scripts, follows final URL and warns on short/long pages", async () => {
@@ -50,6 +53,8 @@ test("structured model pipeline rejects errors, refusal, truncation, invalid sch
       const body = JSON.parse(String(init?.body));
       expect(body.model).toBe("fixture-model"); expect(body.store).toBe(false); expect(body.response_format.json_schema.strict).toBe(true);
       expect(body.messages[0].content).toContain("untrusted DATA");
+      expect(body.messages[0].content).toContain("exactly THREE priorityFixes");
+      expect(body.messages[0].content).toContain("60 to 90 words");
       return Response.json({ choices: [{ finish_reason: "stop", message: { content: JSON.stringify(report) } }] });
     };
     expect(await analyse(scanInput, page, new AbortController().signal)).toEqual(report);
@@ -79,6 +84,34 @@ test("branded report escapes untrusted HTML and includes all sections and closin
   for (const title of ["Executive summary", "Clarity", "Trust & proof", "Conversion", "Search & AI visibility", "Priority fixes", "What I’d fix first", "Closing note"]) expect(rendered.text).toContain(title);
   expect(rendered.html).not.toContain("<script>"); expect(rendered.html).toContain("&lt;script&gt;");
   expect(rendered.html).toContain("https://andygood.me/contact/"); expect(rendered.html).toContain("Instrument Sans");
+});
+
+test("editorial emails remain readable on narrow screens with bounded priorities and safe content", async ({ page }) => {
+  const data = { id: "test", expires: 0, created: "2026-09-10T00:00:00Z", input: { ...scanInput, audience: "", goal: '<img src=x onerror="alert(1)">' }, url: `https://example.com/${"long".repeat(120)}`, warnings: ["Only extracted text was assessed."], report: { ...report, priorityFixes: Array.from({ length: 5 }, (_, i) => ({ ...report.fixFirst, explanation: `Action heading ${i + 1}\nConcise next step ${i + 1}.` })) } };
+  const visitor = renderReport(data);
+  const lead = renderLead(data, "visitor@example.com", "2026-09-10T00:00:00Z");
+  expect(visitor.text.indexOf("What I’d fix first")).toBeLessThan(visitor.text.indexOf("Clarity"));
+  expect(visitor.text).toContain("03 / Action heading 3");
+  expect(visitor.text).not.toContain("Action heading 4");
+  expect(visitor.text.match(/Page evidence/g)).toHaveLength(4);
+  expect(visitor.text).toContain(data.warnings[0]);
+  expect(lead.text).toContain(report.fixFirst.explanation);
+  expect(lead.text).toContain(report.status);
+  expect(lead.text).not.toContain("Executive summary");
+  for (const rendered of [visitor, lead]) {
+    expect(rendered.text).toContain("Not supplied");
+    const colours = [...rendered.html.matchAll(/#[\da-f]{6}\b/gi)].map((match) => match[0].toUpperCase());
+    expect(colours.every((colour) => ["#FFFFFF", "#121820", "#F3F5F7", "#D9DEE3", "#FFD400"].includes(colour))).toBe(true);
+    expect(rendered.html).toContain('<!--[if mso]><table role="presentation" width="640"');
+    await page.route("https://fonts.googleapis.com/**", (route) => route.abort());
+    await page.setContent(rendered.html);
+    await expect(page.locator("img, script, svg")).toHaveCount(0);
+    for (const width of [320, 390, 800]) {
+      await page.setViewportSize({ width, height: 900 });
+      expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
+    }
+  }
+  await expect(page.getByRole("link", { name: "Open submitted page" })).toHaveAttribute("href", scanInput.url);
 });
 
 test("report and lead delivery retry with stable keys/content and bind one recipient", async () => {
