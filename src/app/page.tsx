@@ -79,7 +79,7 @@ export default function HomePage() {
     <div className={styles.home}>
       <Section aria-labelledby="page-title">
         <div className="page-stack hero">
-          <p className="hero-eyebrow">Senior Content &amp; AI Strategist</p>
+          <p className="section-eyebrow">Senior Content &amp; AI Strategist</p>
           <h1 id="page-title" className="hero-title">
             <span>Make complex things clear.</span>{" "}
             <span>Make clear things convert.</span>
@@ -110,7 +110,7 @@ export default function HomePage() {
       <Section aria-labelledby="problem-title">
         <div className={styles.editorialSplit}>
           <div className={styles.sectionIntro}>
-            <p className={styles.eyebrow}>The real problem</p>
+            <p className={`${styles.eyebrow} section-eyebrow`}>The real problem</p>
             <h2 id="problem-title">Content problems rarely start with the content.</h2>
             <div className={styles.prose}>
               <p>Sometimes the message is fuzzy. Sometimes the journey leaks. Sometimes teams are producing plenty but nobody can explain what is working or why.</p>
@@ -130,7 +130,7 @@ export default function HomePage() {
 
       <Section className={styles.offersSection} aria-labelledby="offers-title">
         <header className={styles.sectionHeader}>
-          <p className={styles.eyebrow}>Ways to work</p>
+          <p className={`${styles.eyebrow} section-eyebrow`}>Ways to work</p>
           <h2 id="offers-title">Different problems. Same objective.</h2>
           <p className={styles.intro}>Clearer thinking. Stronger content. Smarter systems.</p>
         </header>
@@ -147,7 +147,7 @@ export default function HomePage() {
 
       <Section aria-labelledby="work-title">
         <header className={styles.sectionHeader}>
-          <p className={styles.eyebrow}>Selected work</p>
+          <p className={`${styles.eyebrow} section-eyebrow`}>Selected work</p>
           <h2 id="work-title">Proof, not promises.</h2>
         </header>
         <div className={styles.workList}>
@@ -168,14 +168,14 @@ export default function HomePage() {
       <Section className={styles.aiSection} aria-labelledby="ai-title">
         <div className={styles.editorialSplit}>
           <div className={styles.sectionIntro}>
-            <p className={styles.eyebrow}>AI, used properly</p>
+            <p className={`${styles.eyebrow} section-eyebrow`}>AI, used properly</p>
             <h2 id="ai-title"><span>AI can make average work faster.</span>{" "}<span>That isn’t the goal.</span></h2>
           </div>
           <div className={styles.prose}>
             <p>AI is useful when it makes good judgement easier to apply, repeat and scale.</p>
             <p>I use it to sharpen research, improve knowledge and workflows, strengthen search visibility and raise consistency, with humans still responsible for the thinking that matters.</p>
             <p className={styles.emphasis}>More output is not the same as more impact.</p>
-            <p className={styles.allmi}>Need broader operational AI or business automation? That sits under <a href="https://allmi.online">allmi</a>.</p>
+            <p className={styles.allmi}>Need broader operational AI or business automation? That sits under <a className="accent-link" href="https://allmi.online">allmi</a>.</p>
           </div>
         </div>
       </Section>
@@ -183,7 +183,7 @@ export default function HomePage() {
       <Section aria-labelledby="about-title">
         <div className={styles.editorialSplit}>
           <div className={styles.sectionIntro}>
-            <p className={styles.eyebrow}>About Andy</p>
+            <p className={`${styles.eyebrow} section-eyebrow`}>About Andy</p>
             <h2 id="about-title"><span>Built on marketing judgement.</span>{" "}<span>Not AI novelty.</span></h2>
             {/* A genuine portrait can sit below this heading in a figure. */}
           </div>

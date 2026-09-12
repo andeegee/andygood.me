@@ -200,7 +200,7 @@
 }
 
 .aiSection .eyebrow {
-  color: var(--steel);
+  color: var(--signal-yellow);
 }
 
 .aiSection h2 {
@@ -225,7 +225,7 @@
 
 .aiSection a:focus-visible,
 .finalSection a:focus-visible {
-  outline-color: var(--white);
+  outline-color: var(--signal-yellow);
 }
 
 .finalSection {
@@ -254,12 +254,15 @@
 }
 
 :global(main):has(.home) + :global(.site-footer) a:focus-visible {
-  outline-color: var(--white);
+  outline-color: var(--signal-yellow);
+}
+
+:global(main):has(.home) + :global(.site-footer) :global(.site-logo) {
+  background: url("/brand/andy-good-logo-white.png") center / 130% auto no-repeat;
 }
 
 :global(main):has(.home) + :global(.site-footer) :global(.site-logo-image) {
-  filter: invert(1) hue-rotate(180deg);
-  mix-blend-mode: screen;
+  opacity: 0;
 }
 
 @media (max-width: 63.99rem) {

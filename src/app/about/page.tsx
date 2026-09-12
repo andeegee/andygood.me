@@ -27,7 +27,7 @@ export default function AboutPage() {
       <section className={styles.hero} aria-labelledby="about-title">
         <Container className={styles.heroGrid}>
           <div className={styles.heroCopy}>
-            <p className={styles.eyebrow}>About Andy</p>
+            <p className={`${styles.eyebrow} section-eyebrow`}>About Andy</p>
             <h1 id="about-title"><span>The tools changed.</span><span>The job didn’t.</span></h1>
             <p className={styles.intro}>I’m Andy Good, a Senior Content &amp; AI Strategist with 18+ years across advertising, copywriting, content, conversion and digital strategy.</p>
             <p>The work has evolved. The commercial problem hasn’t: make the message clearer, make the content more useful and make it easier for people to act.</p>
@@ -106,7 +106,7 @@ export default function AboutPage() {
           <div className={styles.prose}>
             <p>My work as Andy Good stays focused on content, marketing, messaging, conversion and the systems behind them.</p>
             <p>For broader operational AI, automation and business systems, I work through allmi.</p>
-            <a className={styles.allmiLink} href="https://allmi.online">Visit allmi</a>
+            <a className={`${styles.allmiLink} accent-link`} href="https://allmi.online">Visit allmi</a>
           </div>
         </Container>
       </section>

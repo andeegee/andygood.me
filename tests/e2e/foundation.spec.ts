@@ -117,3 +117,21 @@ test("homepage has complete content and working internal links", async ({ page, 
   );
   for (const href of hrefs) expect((await request.get(href)).status()).toBe(200);
 });
+
+test("Signal Yellow accents stay restrained and reusable", async ({ page }, testInfo) => {
+  await page.goto("/");
+  const eyebrow = page.getByText("The real problem", { exact: true });
+  expect(await eyebrow.evaluate((element) => getComputedStyle(element, "::before").backgroundColor)).toBe("rgb(255, 212, 0)");
+  expect(await eyebrow.evaluate((element) => getComputedStyle(element).color)).toBe("rgb(96, 106, 117)");
+  const darkEyebrow = page.getByText("AI, used properly", { exact: true });
+  expect(await darkEyebrow.evaluate((element) => getComputedStyle(element).color)).toBe("rgb(255, 212, 0)");
+  const textLink = page.getByRole("link", { name: "Explore Content, Messaging & Conversion Strategy" });
+  expect(await textLink.evaluate((element) => getComputedStyle(element).textDecorationColor)).toBe("rgb(255, 212, 0)");
+  await textLink.focus();
+  expect(await textLink.evaluate((element) => getComputedStyle(element).textDecorationColor)).toBe("rgb(255, 212, 0)");
+  if (testInfo.project.name === "desktop") {
+    const secondary = page.getByRole("link", { name: "View selected work", exact: true }).first();
+    await secondary.hover();
+    expect(await secondary.evaluate((element) => getComputedStyle(element).borderBottomColor)).toBe("rgb(255, 212, 0)");
+  }
+});

@@ -9,7 +9,7 @@ export const metadata = { ...baseMetadata, title: { absolute: title }, openGraph
 export default function ContactPage() {
   return <div className={`container ${styles.page}`}>
     <header className={styles.hero}>
-      <p className="hero-eyebrow">Contact</p>
+      <p className="section-eyebrow">Contact</p>
       <h1>Tell me what’s getting in the way.</h1>
       <p>If the problem involves content, messaging, conversion, search, AI or the systems behind the work, send me a note.</p>
       <p>You don’t need to know which service you need. Tell me what’s happening and what you’re trying to improve.</p>
@@ -24,7 +24,7 @@ export default function ContactPage() {
         </section>
         <section className={styles.allmi}>
           <p>Looking for broader business automation or operational AI? That work sits under allmi.</p>
-          <a href="https://allmi.online">Visit allmi</a>
+          <a className="accent-link" href="https://allmi.online">Visit allmi</a>
         </section>
         <p className={styles.closing}><strong>Not sure where your problem fits?</strong><br />That’s fine. Start with the problem.</p>
       </aside>

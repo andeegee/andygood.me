@@ -16,7 +16,7 @@ export default function WaysToWorkPage() {
   return <div className={styles.page}>
     <section className={styles.hero} aria-labelledby="ways-title">
       <Container>
-        <p className={styles.eyebrow}>Ways to work</p>
+        <p className={`${styles.eyebrow} section-eyebrow`}>Ways to work</p>
         <h1 id="ways-title">The problem decides the shape of the work.</h1>
         <div className={styles.heroCopy}>
           <div className={styles.prose}>
@@ -30,7 +30,7 @@ export default function WaysToWorkPage() {
     </section>
     {engagements.map((offer, index) => <section key={offer.href} className={`${styles.offer} ${index === 1 ? styles.dark : ""}`} aria-labelledby={`offer-${index + 1}`}>
       <Container>
-        <p className={styles.eyebrow}>{offer.label}</p>
+        <p className={`${styles.eyebrow} section-eyebrow`}>{offer.label}</p>
         <div className={styles.offerHeading}>
           <h2 id={`offer-${index + 1}`}>{offer.title}</h2>
           <div className={styles.lead}>{offer.lead.map(p => <p key={p}>{p}</p>)}</div>
@@ -56,13 +56,13 @@ export default function WaysToWorkPage() {
     </section>)}
     <section className={styles.boundary} aria-labelledby="boundary-title">
       <Container>
-        <p className={styles.eyebrow}>A useful distinction</p>
+        <p className={`${styles.eyebrow} section-eyebrow`}>A useful distinction</p>
         <div className={styles.boundaryGrid}>
           <h2 id="boundary-title">Strategy problem or systems problem?</h2>
           <div className={styles.prose}>
             <p>Fractional strategy can identify and oversee improvements to how the team works.</p>
             <p>But when the work becomes a substantial audit, redesign or implementation of the content operating system, it becomes an AI-Enabled Content Systems engagement.</p>
-            <p className={styles.secondary}>And if the primary problem is broader business operations rather than content, marketing, messaging or growth, that work belongs under <a href="https://allmi.online">allmi</a>.</p>
+            <p className={styles.secondary}>And if the primary problem is broader business operations rather than content, marketing, messaging or growth, that work belongs under <a className="accent-link" href="https://allmi.online">allmi</a>.</p>
           </div>
         </div>
       </Container>

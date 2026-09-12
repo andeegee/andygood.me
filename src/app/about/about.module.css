@@ -3,8 +3,7 @@
 .hero { border-bottom: 1px solid var(--steel); }
 .heroGrid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 2rem; align-items: end; }
 .heroCopy { align-self: center; padding-block: 4rem; }
-.eyebrow { display: flex; align-items: center; gap: .75rem; color: var(--slate); font-size: .875rem; font-weight: 600; margin-bottom: 1.5rem; }
-.eyebrow::before { content: ""; width: 1.75rem; height: 3px; background: var(--signal-yellow); }
+.eyebrow { color: var(--slate); font-size: .875rem; font-weight: 600; margin-bottom: 1.5rem; }
 .hero h1 { max-width: none; font-size: clamp(2rem, 4.1vw, 3.625rem); margin-bottom: 2rem; }
 .hero h1 span { display: block; text-wrap: initial; }
 .heroCopy > p:not(.eyebrow) { max-width: 49ch; font-size: 1.0625rem; color: var(--slate); }
@@ -34,9 +33,9 @@
 .proof dl > div + div { border-left: 1px solid var(--steel); padding-left: 2rem; }
 .proof dt { font-size: 1.25rem; font-weight: 650; line-height: 1.35; margin-bottom: .5rem; }
 .proof dd { margin: 0; color: var(--slate); font-size: .9375rem; max-width: 33ch; }
-.allmiLink { justify-self: start; display: inline-flex; align-items: center; min-height: 2.75rem; color: #7B5CFF; font-weight: 600; }
+.allmiLink { justify-self: start; display: inline-flex; align-items: center; min-height: 2.75rem; font-weight: 600; }
 .final h2 { max-width: 33ch; font-size: clamp(1.75rem, 3.4vw, 3rem); margin-bottom: 2rem; }
-.final a:focus-visible { outline-color: var(--white); }
+.final a:focus-visible { outline-color: var(--signal-yellow); }
 .final a { max-width: 100%; overflow-wrap: anywhere; }
 .final a:hover { background: var(--white); color: var(--carbon); }
 @media (max-width: 63.99rem) {

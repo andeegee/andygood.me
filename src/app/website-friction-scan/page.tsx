@@ -6,7 +6,7 @@ export const metadata = pageMetadata("Free Website Friction Scan", "/website-fri
 export default function FrictionScanPage() {
   return <div className={`container ${styles.page}`}>
     <header className={styles.hero}>
-      <p className="hero-eyebrow">Free website scan</p>
+      <p className="section-eyebrow">Free website scan</p>
       <h1>What’s stopping this page from working harder?</h1>
       <p className="hero-summary">Enter a public webpage and I’ll show you where clarity, trust, conversion or visibility may be getting in the way.</p>
     </header>

@@ -34,7 +34,7 @@ function DetailSection({ section, index }: { section: OfferSection; index: numbe
     <Container>
       <div className={styles.sectionGrid}>
         <header>
-          <p className={styles.eyebrow}>{section.eyebrow}</p>
+          <p className={`${styles.eyebrow} section-eyebrow`}>{section.eyebrow}</p>
           <h2 id={id}>{section.heading}</h2>
         </header>
         <div className={styles.sectionBody}>
@@ -60,7 +60,7 @@ export function OfferPage({ content }: { content: OfferContent }) {
     <section className={styles.hero} aria-labelledby="page-title">
       <Container>
         <ActionLink href="/work-with-me/" variant="text" className={styles.back}>Ways to work</ActionLink>
-        <p className={styles.eyebrow}>{content.hero.eyebrow}</p>
+        <p className={`${styles.eyebrow} section-eyebrow`}>{content.hero.eyebrow}</p>
         <h1 id="page-title">{content.hero.heading}</h1>
         <div className={styles.heroDetails}>
           <div className={styles.lead}><Prose paragraphs={content.hero.lead} /></div>
