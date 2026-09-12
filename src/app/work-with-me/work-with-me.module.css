@@ -31,6 +31,7 @@
 .boundaryGrid { display: grid; grid-template-columns: 1fr 1.3fr; gap: clamp(2rem, 6vw, 6rem); }
 .boundaryGrid h2 { max-width: 20ch; }
 .secondary { color: var(--slate); font-size: 1rem; border-top: 1px solid var(--steel); padding-top: 1rem; }
+.secondary a { color: #7B5CFF; }
 .principleGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.75rem 4rem; margin-top: 2rem; }
 .principleGrid > div { border-top: 1px solid var(--steel); padding-top: 1.25rem; }
 .principleGrid h3 { font-size: 1.1875rem; margin-bottom: .75rem; }
