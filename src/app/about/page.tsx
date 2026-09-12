@@ -3,6 +3,7 @@ import { ActionLink, Container } from "@/components/primitives";
 import { pageMetadata } from "@/lib/metadata";
 import portrait from "../../../public/about/andy-good-profile.png";
 import styles from "./about.module.css";
+import { AboutPortrait } from "./portrait";
 
 const title = "About Andy Good | Senior Content & AI Strategist";
 const description = "Meet Andy Good, a Senior Content & AI Strategist with 18+ years across copywriting, content, conversion, digital strategy and AI-enabled content systems.";
@@ -32,9 +33,9 @@ export default function AboutPage() {
             <p className={styles.intro}>I’m Andy Good, a Senior Content &amp; AI Strategist with 18+ years across advertising, copywriting, content, conversion and digital strategy.</p>
             <p>The work has evolved. The commercial problem hasn’t: make the message clearer, make the content more useful and make it easier for people to act.</p>
           </div>
-          <div className={styles.portrait}>
+          <AboutPortrait>
             <Image src={portrait} alt="Andy Good" preload sizes="(max-width: 767px) 70vw, (max-width: 1200px) 32vw, 384px" />
-          </div>
+          </AboutPortrait>
         </Container>
       </section>
       <section className={styles.section} aria-labelledby="background-title">
