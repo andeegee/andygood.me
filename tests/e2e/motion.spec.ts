@@ -30,3 +30,21 @@ test("keeps content visible without IntersectionObserver", async ({ page }) => {
   await expect(page.locator("html")).not.toHaveClass(/motion-ready/);
   await expect(page.locator("[data-reveal-group] > *").first()).toHaveCSS("opacity", "1");
 });
+
+test("activates the Lab glow only for a fine pointer", async ({ page }, testInfo) => {
+  await page.goto("/ai-lab/");
+  const lab = page.locator("main section[data-cursor-glow]");
+  await expect(lab).toHaveCount(1);
+
+  const box = await lab.boundingBox();
+  if (!box) throw new Error("AI Lab glow section is not visible");
+  await page.mouse.move(box.x + 120, box.y + 120);
+
+  if (testInfo.project.name === "mobile") {
+    await expect(lab).not.toHaveClass(/is-cursor-active/);
+  } else {
+    await expect(lab).toHaveClass(/is-cursor-active/);
+    await page.waitForTimeout(750);
+    await expect(lab).not.toHaveClass(/is-cursor-active/);
+  }
+});

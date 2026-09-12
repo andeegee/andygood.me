@@ -5,7 +5,7 @@ import styles from "./lab.module.css";
 export const metadata = pageMetadata("AI Lab", "/ai-lab/", "Tools and working examples that show how I use AI to improve content, conversion and marketing workflows.");
 
 export default function AiLabPage() {
-  return <Section className={styles.page} aria-labelledby="ai-lab-title">
+  return <Section className={styles.page} aria-labelledby="ai-lab-title" data-cursor-glow>
     <header className={styles.intro}>
       <p className="section-eyebrow">AI LAB</p>
       <h1 id="ai-lab-title">Practical Content + AI systems</h1>
