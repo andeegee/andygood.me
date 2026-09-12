@@ -1,17 +1,17 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import { fixture } from "./briefing-fixture";
-import { selectSummary, summaryMarkdown } from "../../src/app/lab/content-briefing/summary";
+import { selectSummary, summaryMarkdown } from "../../src/app/ai-lab/content-briefing/summary";
 
 async function fill(page: import("@playwright/test").Page) {
-  await page.goto("/lab/content-briefing");
+  await page.goto("/ai-lab/content-briefing");
   for (const key of ["topic", "audience", "objective", "cta"] as const) await page.locator(`#${key}`).fill(fixture.assignment[key]);
   await page.locator("#contentType").selectOption("Article");
   await page.locator("#funnelStage").selectOption("Consideration");
 }
 
 test("briefing layout, indexing and form accessibility", async ({ page, request }, info) => {
-  await page.goto("/lab/content-briefing");
+  await page.goto("/ai-lab/content-briefing");
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
   await expect(page.locator('nav a[href*="content-briefing"]')).toHaveCount(0);
   expect(await (await request.get("/sitemap.xml")).text()).not.toContain("content-briefing");

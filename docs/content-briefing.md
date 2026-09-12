@@ -1,6 +1,6 @@
 # Content briefing lab v1
 
-The unlisted `/lab/content-briefing` route is an internal working tool. The public pages and navigation are unchanged. Route metadata always specifies noindex, nofollow and nocache, independently of `SITE_INDEXABLE`. The route is dynamically rendered and is absent from the sitemap. The API uses POST and returns private, no-store responses.
+The unlisted `/ai-lab/content-briefing` route is an internal working tool. The public pages and navigation are unchanged. Route metadata always specifies noindex, nofollow and nocache, independently of `SITE_INDEXABLE`. The route is dynamically rendered and is absent from the sitemap. The API uses POST and returns private, no-store responses.
 
 ## Architecture
 
@@ -20,7 +20,7 @@ The unlisted `/lab/content-briefing` route is an internal working tool. The publ
 2. Set `CONTENT_BRIEFING_API_KEY` to the provider credential and `CONTENT_BRIEFING_MODEL` to an available model supporting strict JSON Schema on Chat Completions. The model is deliberately not selected on Andy's behalf.
 3. Leave `CONTENT_BRIEFING_BASE_URL=https://api.openai.com/v1` for OpenAI or set the HTTPS API base of an approved compatible provider. Compatibility requires `response_format: json_schema`, `store: false` and `max_completion_tokens` support. See [OpenAI's structured output documentation](https://platform.openai.com/docs/guides/structured-outputs).
 4. Set `CONTENT_BRIEFING_ENABLED=true` only when ready. On the deployment platform, add these server environment variables to the intended environment and redeploy. Locally run `npm run dev` after setting them.
-5. Open `/lab/content-briefing` directly. Submit a non-confidential assignment with a known source. Check both Evidence and Gaps & decisions against the original material, then copy/download the draft.
+5. Open `/ai-lab/content-briefing` directly. Submit a non-confidential assignment with a known source. Check both Evidence and Gaps & decisions against the original material, then copy/download the draft.
 6. Repeat with one public URL, multiple URLs and one inaccessible URL. Confirm partial failures remain visible and unsupported claims are not approved as facts.
 
 API keys never enter the client bundle. Application code does not log submissions or provider payloads. Submitted text is sent to the configured provider; its retention and data policies apply. `store: false` is requested, but does not override the provider's policies.

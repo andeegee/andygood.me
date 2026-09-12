@@ -2,13 +2,13 @@ import { ActionLink, Section } from "@/components/primitives";
 import { pageMetadata } from "@/lib/metadata";
 import styles from "./lab.module.css";
 
-export const metadata = pageMetadata("Lab", "/lab/", "Tools and working examples that show how I use AI to improve content, conversion and marketing workflows.");
+export const metadata = pageMetadata("AI Lab", "/ai-lab/", "Tools and working examples that show how I use AI to improve content, conversion and marketing workflows.");
 
-export default function LabPage() {
-  return <Section className={styles.page} aria-labelledby="lab-title">
+export default function AiLabPage() {
+  return <Section className={styles.page} aria-labelledby="ai-lab-title">
     <header className={styles.intro}>
-      <p className="hero-eyebrow">LAB</p>
-      <h1 id="lab-title">Practical Content + AI systems</h1>
+      <p className="hero-eyebrow">AI LAB</p>
+      <h1 id="ai-lab-title">Practical Content + AI systems</h1>
       <p className="hero-summary">Tools and working examples that show how I use AI to improve content, conversion and marketing workflows.</p>
     </header>
     <div className={styles.cards}>
@@ -22,7 +22,7 @@ export default function LabPage() {
         <p className={styles.label}>Interactive demo</p>
         <h2 id="briefing-title">Content briefing system</h2>
         <p className={styles.description}>Turn assignments and source material into structured, evidence-led content briefs.</p>
-        <ActionLink href="/lab/content-briefing/" variant="text">View the demo</ActionLink>
+        <ActionLink href="/ai-lab/content-briefing/" variant="text">View the demo</ActionLink>
       </article>
     </div>
   </Section>;

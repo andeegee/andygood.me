@@ -3,7 +3,7 @@ import AxeBuilder from "@axe-core/playwright";
 import { fixture } from "./briefing-fixture";
 
 async function prepare(page: Page) {
-  await page.goto("/lab/content-briefing");
+  await page.goto("/ai-lab/content-briefing");
   for (const key of ["topic", "audience", "objective", "cta", "sourceText"] as const) await page.locator(`#${key}`).fill(fixture.assignment[key]);
   await page.locator("#contentType").selectOption("Article");
   await page.locator("#funnelStage").selectOption("Consideration");
