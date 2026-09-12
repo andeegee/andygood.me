@@ -257,8 +257,9 @@
   outline-color: var(--white);
 }
 
-:global(main):has(.home) + :global(.site-footer) :global(.site-brand) {
-  background: var(--white);
+:global(main):has(.home) + :global(.site-footer) :global(.site-logo-image) {
+  filter: invert(1) hue-rotate(180deg);
+  mix-blend-mode: screen;
 }
 
 @media (max-width: 63.99rem) {
