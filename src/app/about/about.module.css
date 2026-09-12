@@ -34,7 +34,7 @@
 .proof dl > div + div { border-left: 1px solid var(--steel); padding-left: 2rem; }
 .proof dt { font-size: 1.25rem; font-weight: 650; line-height: 1.35; margin-bottom: .5rem; }
 .proof dd { margin: 0; color: var(--slate); font-size: .9375rem; max-width: 33ch; }
-.allmiLink { justify-self: start; display: inline-flex; align-items: center; min-height: 2.75rem; font-weight: 600; }
+.allmiLink { justify-self: start; display: inline-flex; align-items: center; min-height: 2.75rem; color: #7B5CFF; font-weight: 600; }
 .final h2 { max-width: 33ch; font-size: clamp(1.75rem, 3.4vw, 3rem); margin-bottom: 2rem; }
 .final a:focus-visible { outline-color: var(--white); }
 .final a { max-width: 100%; overflow-wrap: anywhere; }

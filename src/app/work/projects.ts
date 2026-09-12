@@ -17,6 +17,7 @@ export const projects = [
   },
   {
     "name": "Datasaur",
+    "url": "https://datasaur.ai/",
     "category": "AI · Campaign strategy · Landing pages",
     "heading": "Making complex AI infrastructure easier to sell.",
     "copy": [
@@ -32,6 +33,7 @@ export const projects = [
   },
   {
     "name": "Ramp",
+    "url": "https://ramp.com/",
     "category": "Fintech · Paid campaigns · Conversion",
     "heading": "Different angles. One finance audience that needed a reason to care.",
     "copy": [
@@ -66,26 +68,31 @@ export const projects = [
 export const moreProjects = [
   {
     "name": "Moxie",
+    "url": "https://www.joinmoxie.com/",
     "category": "SaaS · Landing pages · Conversion",
     "copy": "Landing-page concept and copy for an updated demo-request journey, simplifying the proposition around the needs of medspa founders and reducing perceived complexity."
   },
   {
     "name": "Datch",
+    "url": "https://www.datch.io/",
     "category": "Enterprise AI · Paid campaign",
     "copy": "Intro and outro copy for a paid LinkedIn video campaign exploring whether AI is a threat to enterprise CEOs, written to grab attention and create tension within tight platform constraints."
   },
   {
     "name": "Orbital Witness",
+    "url": "https://www.orbital.tech/",
     "category": "PropTech · Website copy",
     "copy": "Co-wrote the company’s first website, helping explain a complex property technology proposition more clearly."
   },
   {
-    "name": "Compassionate Inquiry",
+    "name": "Compassionate Inquiry®",
+    "url": "https://compassionateinquiry.com/en/author/andy-good/",
     "category": "Content · Campaigns · Conversion",
     "copy": "Campaign and lifecycle email, landing-page and marketing copy translating complex trauma-informed ideas into clear, human communication without flattening the nuance."
   },
   {
     "name": "The Wood Cave",
+    "url": "https://www.thewoodcave.co.uk/",
     "category": "Website · SEO · Content",
     "copy": "Complete website copy and ongoing search-focused content for a specialist timber business, making a technical product range easier to understand and buy."
   }
