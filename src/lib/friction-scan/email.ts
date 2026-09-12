@@ -56,7 +56,7 @@ export function renderLead(data: ReportPayload, email: string, requestedAt: stri
     html: emailLayout("New Website Friction Scan", `${row(`<p style="margin:0 0 16px;font-weight:600">Andy Good</p><h1 style="margin:0;font-size:26px;line-height:1.25">New Website Friction Scan</h1>`)}${row(fields.map(([label, value]) => field(label, value)).join(""), "padding:0 24px 8px")}${row(`${button("Open submitted page", data.input.url)}<p style="margin:20px 0 0;font-size:13px">Timestamp: ${escape(requestedAt)}</p>`)}`),
   };
 }
-type Email = { to: string; subject: string; text: string; html?: string };
+type Email = { to: string; subject: string; text: string; html?: string; reply_to?: string };
 export interface EmailProvider { send(message: Email, idempotencyKey: string): Promise<void> }
 export const resend: EmailProvider = {
   async send(message, idempotencyKey) {
