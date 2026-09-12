@@ -11,6 +11,7 @@ export const isIndexable =
 export const navigation = [
   { href: "/work/", label: "Work" },
   { href: "/work-with-me/", label: "Ways to work" },
+  { href: "/lab/", label: "Lab" },
   { href: "/insights/", label: "Insights" },
   { href: "/about/", label: "About" },
   { href: "/contact/", label: "Contact" },

@@ -1,0 +1,10 @@
+.page { padding-block: clamp(2.5rem, 5vw, 4rem); }
+.intro { display: grid; gap: var(--space-6); }
+.cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-12); margin-top: var(--space-12); }
+.card { display: flex; flex-direction: column; align-items: start; gap: var(--space-4); border-top: 1px solid var(--steel); padding-top: var(--space-6); }
+.label { color: var(--slate); font-size: var(--text-small); font-weight: 600; }
+.description { color: var(--slate); max-width: 46ch; }
+.card > a { margin-top: auto; }
+@media (max-width: 47.99rem) {
+  .cards { grid-template-columns: minmax(0, 1fr); gap: var(--space-8); }
+}
