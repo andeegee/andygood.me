@@ -2,10 +2,11 @@ import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import { launchPaths, navigation, site } from "../../src/lib/site";
 
-const paths = [...launchPaths, "/work/placeholder/", "/insights/placeholder/"];
+const paths = launchPaths;
 
 for (const path of paths) {
   test(`${path} renders with accessible layout and metadata`, async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
     const errors: string[] = [];
     page.on("pageerror", (error) => errors.push(error.message));
     const response = await page.goto(path);
@@ -16,7 +17,7 @@ for (const path of paths) {
     await expect(page.getByRole("contentinfo")).toBeVisible();
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", `${site.url}${path}`);
     await expect(page.locator('meta[property="og:url"]')).toHaveAttribute("content", `${site.url}${path}`);
-    await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
+    await expect(page.locator('meta[name="robots"]')).not.toHaveAttribute("content", /noindex/);
     expect(await page.locator('meta[property="og:title"]').getAttribute("content")).toBe(await page.title());
     await page.evaluate(() => document.fonts.ready);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
@@ -74,7 +75,9 @@ test("sitemap, robots and unknown routes", async ({ request }) => {
   expect(xml).not.toContain("placeholder");
   const robots = await request.get("/robots.txt");
   expect(robots.status()).toBe(200);
-  expect(await robots.text()).toContain("Disallow: /");
+  const robotsText = await robots.text();
+  expect(robotsText).toContain("User-Agent: *\nAllow: /");
+  expect(robotsText).not.toContain("Disallow: /");
   for (const path of ["/missing/", "/work/missing/", "/insights/missing/", "/work-with-me/missing/"]) {
     expect((await request.get(path)).status()).toBe(404);
   }

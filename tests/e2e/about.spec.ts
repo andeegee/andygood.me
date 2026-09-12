@@ -4,7 +4,7 @@ import AxeBuilder from "@axe-core/playwright";
 test("portrait scrubs with scroll and retains static fallbacks", async ({ page }, testInfo) => {
   await page.goto("/about/");
   const video = page.locator("main video");
-  const portrait = page.locator("main").getByRole("img", { name: "Andy Good", exact: true });
+  const portrait = page.locator("main").getByRole("img", { name: "Portrait of Andy Good", exact: true });
   await expect.poll(() => portrait.evaluate((img: HTMLImageElement) => img.complete)).toBe(true);
   const initialBounds = await portrait.boundingBox();
   if (testInfo.project.name === "mobile") {
@@ -57,7 +57,7 @@ test("portrait remains static while video loads and if loading fails", async ({ 
   const video = page.locator("main video");
   await expect(video).toHaveAttribute("src", "/media/andy-about-handshake.mp4");
   await expect(video).toHaveCSS("opacity", "0");
-  await expect(page.locator("main").getByRole("img", { name: "Andy Good", exact: true })).toBeVisible();
+  await expect(page.locator("main").getByRole("img", { name: "Portrait of Andy Good", exact: true })).toBeVisible();
   failRequest();
   await expect.poll(() => video.evaluate((v: HTMLVideoElement) => v.error !== null)).toBe(true);
   await expect(video).toHaveCSS("opacity", "0");
@@ -67,7 +67,7 @@ test("about metadata, portrait and contact journey", async ({ page, request }) =
   await page.goto("/about/");
   await expect(page).toHaveTitle("About Andy Good | Senior Content & AI Strategist");
   await expect(page.locator('meta[name="description"]')).toHaveAttribute("content", "Meet Andy Good, a Senior Content & AI Strategist with 18+ years across copywriting, content, conversion, digital strategy and AI-enabled content systems.");
-  const portrait = page.locator("main").getByRole("img", { name: "Andy Good", exact: true });
+  const portrait = page.locator("main").getByRole("img", { name: "Portrait of Andy Good", exact: true });
   await expect.poll(() => portrait.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0)).toBe(true);
   expect((await request.get((await portrait.getAttribute("src"))!)).ok()).toBe(true);
   await expect(page.getByRole("link", { name: "Visit allmi", exact: true })).toHaveAttribute("href", "https://allmi.online");
@@ -83,7 +83,7 @@ test("about responsive layouts and accessibility", async ({ page }, testInfo) =>
   for (const width of [1440, 1280, 768, 390, 320]) {
     await page.setViewportSize({ width, height: 1000 });
     await page.evaluate(() => document.fonts.ready);
-    const portrait = page.locator("main").getByRole("img", { name: "Andy Good", exact: true });
+    const portrait = page.locator("main").getByRole("img", { name: "Portrait of Andy Good", exact: true });
     await expect.poll(() => portrait.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0)).toBe(true);
     const bounds = await portrait.boundingBox();
     expect(bounds!.x).toBeGreaterThanOrEqual(0);

@@ -1,4 +1,5 @@
 import { ActionLink, Container } from "@/components/primitives";
+import { breadcrumbSchema, schemaGraph, serviceSchema, StructuredData } from "@/components/structured-data";
 import styles from "./offer-page.module.css";
 
 type OfferLink = { label: string; href: string };
@@ -55,8 +56,16 @@ function DetailSection({ section, index }: { section: OfferSection; index: numbe
   </section>;
 }
 
-export function OfferPage({ content }: { content: OfferContent }) {
+export function OfferPage({ content, path }: { content: OfferContent; path: string }) {
   return <div className={`${styles.page} ${styles[content.variant]}`}>
+    <StructuredData data={schemaGraph(
+      serviceSchema(content.title, content.description, path),
+      breadcrumbSchema([
+        { name: "Home", path: "/" },
+        { name: "Ways to work", path: "/work-with-me/" },
+        { name: content.title, path },
+      ]),
+    )} />
     <section className={styles.hero} aria-labelledby="page-title">
       <Container>
         <ActionLink href="/work-with-me/" variant="text" className={styles.back}>Ways to work</ActionLink>

@@ -34,7 +34,7 @@ export default function AboutPage() {
             <p>The work has evolved. The commercial problem hasn’t: make the message clearer, make the content more useful and make it easier for people to act.</p>
           </div>
           <AboutPortrait>
-            <Image src={portrait} alt="Andy Good" preload sizes="(max-width: 767px) 70vw, (max-width: 1200px) 32vw, 384px" />
+            <Image src={portrait} alt="Portrait of Andy Good" preload sizes="(max-width: 767px) 70vw, (max-width: 1200px) 32vw, 384px" />
           </AboutPortrait>
         </Container>
       </section>

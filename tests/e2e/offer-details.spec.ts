@@ -14,7 +14,7 @@ for (const offer of offers) {
     await expect(page).toHaveTitle(`${offer.title} | Andy Good`);
     await expect(page.getByRole("heading", { level: 1 })).toHaveText(offer.heading);
     await expect(page.locator('meta[name="description"]')).toHaveAttribute("content", offer.description);
-    await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
+    await expect(page.locator('meta[name="robots"]')).not.toHaveAttribute("content", /noindex/);
     await expect(page.locator("main section")).toHaveCount(offer.sections);
     expect(await page.locator("main").innerText()).not.toMatch(/\[[A-Z][A-Z\s,&-]+\]/);
     for (const href of ["/work-with-me/", ...offer.links]) {
@@ -39,6 +39,7 @@ for (const offer of offers) {
   test(`${offer.slug} responsive and accessible at all requested widths`, async ({ page }, info) => {
     test.skip(info.project.name !== "desktop", "All widths covered in the desktop run.");
     test.setTimeout(90000);
+    await page.emulateMedia({ reducedMotion: "reduce" });
     const errors: string[] = [];
     page.on("pageerror", error => errors.push(error.message));
     for (const width of [1440, 1280, 768, 390, 320]) {

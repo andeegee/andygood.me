@@ -27,6 +27,7 @@ test("ways to work links reach the three intended offers", async ({ page }) => {
 test("ways to work responsive layout and accessibility", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop", "All requested widths are covered in one run.");
   test.setTimeout(90000);
+  await page.emulateMedia({ reducedMotion: "reduce" });
   const errors: string[] = [];
   page.on("pageerror", error => errors.push(error.message));
   for (const width of [1440, 1280, 768, 390, 320]) {

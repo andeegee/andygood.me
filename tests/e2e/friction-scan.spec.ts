@@ -10,7 +10,7 @@ test("public scan has approved copy, validation, keyboard access and accessible 
   await page.goto("/website-friction-scan/");
   await expect(page).toHaveTitle("Free Website Friction Scan | Andy Good");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("What’s stopping this page from working harder?");
-  await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
+  await expect(page.locator('meta[name="robots"]')).not.toHaveAttribute("content", /noindex/);
   await expect(page.locator("nav").getByRole("link", { name: /scan/i })).toHaveCount(0);
   await page.getByRole("button", { name: "Scan my page" }).click();
   await expect(page.getByLabel("Page URL", { exact: true })).toBeFocused();

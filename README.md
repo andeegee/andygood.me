@@ -1,6 +1,6 @@
 # andygood.me
 
-Technical foundation for Andy Good's website. Strategy and brand guidance lives in `docs/brand/`. Read `AGENTS.md` and those files before material changes. Page and metadata placeholders are intentional; this is not launch copy.
+Andy Good's website. Strategy and brand guidance lives in `docs/brand/`. Read `AGENTS.md` and those files before material changes.
 
 ## Stack and local development
 
@@ -23,38 +23,40 @@ npx playwright install chromium
 npm run test:e2e
 ```
 
-The browser suite starts the production server on port 3000. Stop any other server using that port first. It checks every route at desktop and mobile sizes, WCAG A/AA automated rules, navigation, keyboard access, narrow screens with enlarged text, metadata, crawl files and 404s. Screenshots and failure traces go to ignored `test-results/`. Tests expect the default `SITE_INDEXABLE=false` foundation state.
+The browser suite starts the production server on port 3000. Stop any other server using that port first. It checks every route at desktop and mobile sizes, WCAG A/AA automated rules, navigation, keyboard access, narrow screens with enlarged text, metadata, crawl files, structured data, internal links, redirects and 404s. Screenshots and failure traces go to ignored `test-results/`.
 
 ## Routes
 
 - `/`
 - `/work/`
-- `/work/[case-study]/`, currently verified through `/work/placeholder/`
 - `/work-with-me/`
 - `/work-with-me/content-messaging-conversion/`
 - `/work-with-me/fractional-content-ai-strategy/`
 - `/work-with-me/ai-enabled-content-systems/`
+- `/ai-lab/`
+- `/website-friction-scan/`
+- `/ai-lab/content-briefing/` (internal, noindex)
 - `/insights/`
-- `/insights/[article]/`, currently verified through `/insights/placeholder/`
+- `/insights/[article]/`
 - `/about/`
 - `/contact/`
 
-All page shells are prerendered. Detail routes use `generateStaticParams` and reject unknown slugs with 404s. The two placeholder slugs are technical fixtures with labelled copy, noindex metadata and no sitemap entries. Replace them with approved content records, metadata and real slugs when available. Do not turn arbitrary incoming slugs into pages.
+Public page content is server-rendered or prerendered. Insight routes use `generateStaticParams` and reject unknown slugs with 404s. Do not turn arbitrary incoming slugs into pages.
 
 ## Components and design
 
-`src/app/globals.css` defines the approved six colours, variable typography, spacing, readable widths, responsive navigation and interaction treatments. `src/components/` contains the header, footer, page and offer shells, container, section, action link, button and placeholder primitives. Only the header needs a client boundary. The mobile menu is a disclosure with `aria-expanded`, normal tab order, Escape handling and closure after navigation; it is not a modal.
+`src/app/globals.css` defines the approved six colours, variable typography, spacing, readable widths, responsive navigation and interaction treatments. `src/components/` contains the header, footer, page and offer shells, container, section, action link, button and placeholder primitives. Page content stays in Server Components; client boundaries are limited to the navigation, approved motion and interactive tools. The mobile menu is a disclosure with `aria-expanded`, normal tab order, Escape handling and closure after navigation; it is not a modal.
 
 The header and footer use Andy's supplied and approved logo as a home link. `SiteLogo` frames the square original using CSS and serves optimised versions through `next/image`; the original PNG is preserved in `public/brand/`. The offer names are taken from the approved offers document and displayed in sentence case. No case studies, claims, results, testimonials, client identities or contact details have been invented. No content backend, analytics or form handler is included.
 
 ## SEO and launch controls
 
-`src/lib/metadata.ts` centralises unique titles, canonical URLs, Open Graph and X summary metadata. `src/lib/site.ts` is the canonical origin and navigation source. Canonicals use `https://andygood.me` and trailing slashes. Descriptions remain labelled placeholders. A social image is omitted pending an approved asset; there is no invented logo or generic image.
+`src/lib/metadata.ts` centralises unique titles, descriptions, canonical URLs, Open Graph and X summary metadata. `src/lib/site.ts` is the canonical origin and navigation source. Canonicals use `https://andygood.me` and trailing slashes. JSON-LD connects the website, Andy, services, article authorship and breadcrumbs. A social image is omitted pending an approved asset; there is no invented logo or generic image.
 
-The foundation defaults to noindex and a disallow-all robots file. Vercel preview environments remain noindex even if `SITE_INDEXABLE=true`. The sitemap lists the nine approved fixed URLs and excludes technical fixtures. Before launch, replace all placeholders and approve metadata, then explicitly set `SITE_INDEXABLE=true` for production and rebuild. Search indexing controls are not access control.
+Production builds are indexable by default and Vercel previews remain noindex. Set `SITE_INDEXABLE=false` only for an emergency crawl/indexing pause. The sitemap lists every public canonical page and excludes the internal content-briefing tool. Search indexing controls are not access control.
 
-## Before connecting Vercel
+## Deployment
 
-No Vercel project has been created or linked. The repository is ready to import using the Next.js preset, repository root, Node.js 24, `npm ci`, and `npm run build`. Leave the output directory at the preset default. No credentials, database or runtime integrations are required for this foundation. Keep `SITE_INDEXABLE=false` until launch approval.
+Use the Next.js preset, repository root, Node.js 24, `npm ci`, and `npm run build`. Leave the output directory at the preset default. Ensure the production environment does not override `SITE_INDEXABLE` to `false`.
 
-Before public launch, approve page copy, metadata, real work/article content and slugs, the contact method and any social preview/favicon assets. Decide any content-management or analytics needs separately. Audit existing live URLs and supply a redirect map before replacing the current site. Domain/DNS cutover and public indexing should follow content and launch approval. Core Web Vitals need field validation after real content is added and the site is deployed.
+Manage search verification and sitemap submission in Google Search Console and Bing Webmaster Tools. Add verified profile URLs to Person `sameAs` and an approved social preview image when those assets are available. Core Web Vitals need field validation on the deployed site with real traffic.

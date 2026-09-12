@@ -2,10 +2,13 @@ export const site = {
   name: "Andy Good",
   url: "https://andygood.me",
   locale: "en_GB",
+  language: "en-GB",
+  description: "Senior Content & AI Strategist helping SaaS and technology teams improve messaging, content performance, conversion and AI-enabled content systems.",
 } as const;
 
 export const isIndexable =
-  process.env.SITE_INDEXABLE === "true" &&
+  process.env.NODE_ENV === "production" &&
+  process.env.SITE_INDEXABLE !== "false" &&
   (!process.env.VERCEL_ENV || process.env.VERCEL_ENV === "production");
 
 export const navigation = [
@@ -28,6 +31,7 @@ export const launchPaths = [
   "/",
   ...navigation.map(({ href }) => href),
   ...offers.map(({ slug }) => `/work-with-me/${slug}/`),
+  "/website-friction-scan/",
   "/insights/ai-seo-geo-aeo-2026/",
   "/insights/b2b-saas-landing-page-not-converting/",
   "/insights/fractional-content-strategist/",

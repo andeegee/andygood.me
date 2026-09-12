@@ -9,7 +9,7 @@ test("contact metadata, links, five widths and accessibility", async ({ page }, 
   page.on("pageerror", (error) => errors.push(error.message));
   await page.goto("/contact/");
   await expect(page).toHaveTitle("Contact Andy Good | Content & AI Strategy");
-  await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
+  await expect(page.locator('meta[name="robots"]')).not.toHaveAttribute("content", /noindex/);
   await expect(page.locator('meta[name="description"]')).toHaveAttribute("content", "Contact Senior Content & AI Strategist Andy Good about content strategy, messaging, conversion, fractional strategy, AI-enabled content systems or senior copywriting.");
   await expect(page.getByRole("link", { name: "letschat@andygood.me", exact: true })).toHaveAttribute("href", "mailto:letschat@andygood.me");
   await expect(page.getByRole("link", { name: "Visit allmi" })).toHaveAttribute("href", "https://allmi.online");

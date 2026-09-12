@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { assignmentLabels, directionLabels, requirementLabels, searchLabels, toMarkdown, type Result } from "@/lib/content-briefing/schema";
 import styles from "./tool.module.css";
 import { SummaryView } from "./summary-view";
@@ -22,6 +22,10 @@ export function BriefingTool() {
   const output = useRef<HTMLElement>(null);
   const errorMessage = useRef<HTMLParagraphElement>(null);
   const abort = useRef<AbortController | null>(null);
+
+  useEffect(() => {
+    if (error) errorMessage.current?.focus();
+  }, [error]);
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -48,7 +52,6 @@ export function BriefingTool() {
       requestAnimationFrame(() => { output.current?.focus(); output.current?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth", block: "start" }); });
     } catch (e) {
       setError(e instanceof Error && e.name !== "AbortError" ? e.message : "The request was cancelled or timed out. Your inputs are still available.");
-      requestAnimationFrame(() => errorMessage.current?.focus());
     }
     finally { clearTimeout(timeout); setBusy(false); abort.current = null; }
   }
