@@ -1,0 +1,36 @@
+.hero, .index, .article { padding-block: var(--section-space); }
+.hero { border-bottom: 1px solid var(--steel); }
+.hero p { margin-top: var(--space-6); font-size: var(--text-lead); color: var(--slate); }
+.feature { padding-block: var(--space-12); border-bottom: 1px solid var(--steel); }
+.eyebrow, .meta { color: var(--slate); font-size: var(--text-small); font-weight: 600; }
+.feature h2, .entry h2 { margin-top: var(--space-3); max-width: 25ch; }
+.feature p, .entry p { margin-top: var(--space-4); }
+.articleLink { display: inline-block; margin-top: var(--space-6); font-weight: 600; }
+.list { border-top: 1px solid var(--steel); }
+.entry { display: grid; grid-template-columns: minmax(8rem, 1fr) 2fr; gap: var(--space-6); padding-block: var(--space-8); border-bottom: 1px solid var(--steel); }
+.entry h2 { font-size: clamp(1.4rem, 2.4vw, 2rem); }
+.cta { padding: var(--space-12) 0; }
+.ctaInner { padding: var(--space-8); background: var(--carbon); color: var(--white); }
+.ctaInner p { margin-top: var(--space-4); color: #d9dee3; }
+.article { max-width: 75rem; }
+.articleHeader { max-width: 75ch; padding-bottom: var(--space-12); border-bottom: 1px solid var(--steel); }
+.articleHeader h1 { max-width: 19ch; margin-top: var(--space-4); }
+.standfirst { margin-top: var(--space-6); font-size: var(--text-lead); color: var(--slate); }
+.byline { margin-top: var(--space-6); color: var(--slate); }
+.body { max-width: 72ch; }
+.body section { padding-block: var(--space-8); border-bottom: 1px solid var(--steel); }
+.body h2 { max-width: 26ch; }
+.body p { margin-top: var(--space-4); }
+.body ul { margin: var(--space-4) 0 0; padding-left: 1.25rem; max-width: var(--text-width); }
+.body li + li { margin-top: var(--space-2); }
+.tableWrap { margin-top: var(--space-6); overflow-x: auto; border: 1px solid var(--steel); }
+.table { width: 100%; min-width: 34rem; border-collapse: collapse; font-size: .95rem; }
+.table th, .table td { padding: var(--space-3); text-align: left; vertical-align: top; border-bottom: 1px solid var(--steel); }
+.table th { background: var(--fog); font-weight: 600; }
+.takeaways { padding: var(--space-8); background: var(--fog); }
+.takeaways h2 { font-size: var(--text-h2); }
+.related, .sources { padding-top: var(--space-8); }
+.related ul, .sources ul { padding-left: 1.25rem; }
+.related li + li, .sources li + li { margin-top: var(--space-2); }
+.author { margin-top: var(--space-12); padding-top: var(--space-6); border-top: 1px solid var(--steel); color: var(--slate); }
+@media (max-width: 47.99rem) { .entry { grid-template-columns: 1fr; gap: var(--space-2); } .ctaInner { padding: var(--space-6); } }

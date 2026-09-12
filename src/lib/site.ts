@@ -28,4 +28,8 @@ export const launchPaths = [
   "/",
   ...navigation.map(({ href }) => href),
   ...offers.map(({ slug }) => `/work-with-me/${slug}/`),
+  "/insights/ai-seo-geo-aeo-2026/",
+  "/insights/b2b-saas-landing-page-not-converting/",
+  "/insights/fractional-content-strategist/",
+  "/insights/ai-content-systems/",
 ];
