@@ -21,7 +21,7 @@
 .aside p { color: var(--slate); }
 .email { font-size: clamp(1.125rem, 2vw, 1.5rem); font-weight: 600; overflow-wrap: anywhere; }
 .allmi { border-top: 1px solid var(--steel); padding-top: 1.5rem; }
-.allmi a { justify-self: start; font-weight: 600; }
+.allmi a { justify-self: start; color: #7B5CFF; font-weight: 600; }
 .closing strong { font-weight: 600; color: var(--carbon); }
 .success { border-left: 3px solid var(--signal-yellow); background: var(--fog); padding: 1.5rem; display: grid; gap: .75rem; }
 @media (max-width: 47.99rem) { .grid { grid-template-columns: minmax(0, 1fr); } .aside { border-top: 1px solid var(--steel); padding-top: 2rem; } }
