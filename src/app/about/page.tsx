@@ -38,7 +38,7 @@ export default function AboutPage() {
         </Container>
       </section>
       <section className={styles.section} aria-labelledby="background-title">
-        <Container className={styles.editorial}>
+        <Container className={styles.editorial} data-reveal-group>
           <h2 id="background-title">I didn’t arrive at AI from the technology side.</h2>
           <div className={styles.prose}>
             <p>I started in media, advertising and commercial roles, then moved deeper into digital marketing, copywriting, content and conversion.</p>
@@ -58,7 +58,7 @@ export default function AboutPage() {
         </Container>
       </section>
       <section className={`${styles.section} ${styles.dark}`} aria-labelledby="experience-title">
-        <Container className={styles.editorial}>
+        <Container className={styles.editorial} data-reveal-group>
           <h2 id="experience-title">After enough years, you stop treating symptoms.</h2>
           <div className={styles.prose}>
             <div className={styles.pair}>
@@ -82,18 +82,18 @@ export default function AboutPage() {
       </section>
       <section className={styles.section} aria-labelledby="principles-title">
         <Container>
-          <h2 id="principles-title" className={styles.principlesTitle}>Commercial problem first. Tools second.</h2>
-          <div className={styles.principles}>
+          <h2 id="principles-title" className={styles.principlesTitle} data-reveal>Commercial problem first. Tools second.</h2>
+          <div className={styles.principles} data-reveal-group>
             {principles.map(([heading, copy]) => (
               <div key={heading} className={styles.principle}><h3>{heading}</h3><p>{copy}</p></div>
             ))}
           </div>
-          <p className={styles.execution}>Strategy does not become more valuable by becoming detached from execution.</p>
+          <p className={styles.execution} data-reveal>Strategy does not become more valuable by becoming detached from execution.</p>
         </Container>
       </section>
       <div className={styles.proof}>
         <Container>
-          <dl>
+          <dl data-reveal-group>
             <div><dt>18+ years</dt><dd>Advertising, content, copy, conversion and digital strategy</dd></div>
             <div><dt>100+ companies &amp; brands</dt><dd>Across SaaS, technology, agencies and growth businesses</dd></div>
             <div><dt>Strategy + execution</dt><dd>From messaging and campaigns to AI-enabled content systems</dd></div>
@@ -101,7 +101,7 @@ export default function AboutPage() {
         </Container>
       </div>
       <section className={styles.section} aria-labelledby="allmi-title">
-        <Container className={styles.editorial}>
+        <Container className={styles.editorial} data-reveal-group>
           <h2 id="allmi-title">Two brands. Different problems.</h2>
           <div className={styles.prose}>
             <p>My work as Andy Good stays focused on content, marketing, messaging, conversion and the systems behind them.</p>
@@ -111,7 +111,7 @@ export default function AboutPage() {
         </Container>
       </section>
       <section className={`${styles.section} ${styles.dark} ${styles.final}`} aria-labelledby="contact-title">
-        <Container>
+        <Container data-reveal>
           <h2 id="contact-title">If the problem sits somewhere between content, strategy and AI, we should probably talk.</h2>
           <ActionLink href="/contact/">Start a conversation</ActionLink>
         </Container>

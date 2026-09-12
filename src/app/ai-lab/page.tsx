@@ -11,7 +11,7 @@ export default function AiLabPage() {
       <h1 id="ai-lab-title">Practical Content + AI systems</h1>
       <p className="hero-summary">Tools and working examples that show how I use AI to improve content, conversion and marketing workflows.</p>
     </header>
-    <div className={styles.cards}>
+    <div className={styles.cards} data-reveal-group>
       <article className={styles.card} aria-labelledby="scan-title">
         <p className={`${styles.label} section-eyebrow`}>Free tool</p>
         <h2 id="scan-title">Website Friction Scan</h2>

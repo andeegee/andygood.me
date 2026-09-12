@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { MotionEffects } from "@/components/motion-effects";
 import { isIndexable, site } from "@/lib/site";
 import "./globals.css";
 
@@ -31,6 +32,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <SiteHeader />
         <main id="main-content" tabIndex={-1}>{children}</main>
         <SiteFooter />
+        <MotionEffects />
       </body>
     </html>
   );

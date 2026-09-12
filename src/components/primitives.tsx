@@ -1,8 +1,8 @@
 import Link from "next/link";
 import type { ComponentProps, ReactNode } from "react";
 
-export function Container({ children, className = "" }: { children: ReactNode; className?: string }) {
-  return <div className={`container ${className}`}>{children}</div>;
+export function Container({ children, className = "", ...props }: ComponentProps<"div">) {
+  return <div className={`container ${className}`} {...props}>{children}</div>;
 }
 
 export function Section({ children, className = "", ...props }: ComponentProps<"section">) {

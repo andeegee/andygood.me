@@ -33,17 +33,17 @@ function DetailSection({ section, index }: { section: OfferSection; index: numbe
   return <section className={`${styles.section} ${styles[section.tone]} ${wide ? styles.wide : ""}`} aria-labelledby={id}>
     <Container>
       <div className={styles.sectionGrid}>
-        <header>
+        <header data-reveal>
           <p className={`${styles.eyebrow} section-eyebrow`}>{section.eyebrow}</p>
           <h2 id={id}>{section.heading}</h2>
         </header>
-        <div className={styles.sectionBody}>
+        <div className={styles.sectionBody} data-reveal>
           {section.kind === "prose" && <Prose paragraphs={section.paragraphs} />}
           {section.kind === "list" && <ul className={styles.fitList}>{section.items.map(item => <li key={item}>{item}</li>)}</ul>}
-          {section.kind === "areas" && <div className={styles.areas}>{section.areas.map(area => <div className={styles.area} key={area.title}>
+          {section.kind === "areas" && <div className={styles.areas} data-reveal-group>{section.areas.map(area => <div className={styles.area} key={area.title}>
             <h3>{area.title}</h3><p>{area.copy}</p>
           </div>)}</div>}
-          {section.kind === "stages" && <ol className={styles.stages}>{section.areas.map((area, step) => <li key={area.title}>
+          {section.kind === "stages" && <ol className={styles.stages} data-reveal-group>{section.areas.map((area, step) => <li key={area.title}>
             <span className={styles.number} aria-hidden="true">{String(step + 1).padStart(2, "0")}</span>
             <div><h3>{area.title}</h3><p>{area.copy}</p></div>
           </li>)}</ol>}
@@ -74,7 +74,7 @@ export function OfferPage({ content }: { content: OfferContent }) {
     </section>
     {content.sections.map((section, index) => <DetailSection key={section.eyebrow} section={section} index={index} />)}
     <section className={`${styles.section} ${styles.dark} ${styles.closing}`} aria-labelledby="offer-contact-title">
-      <Container>
+      <Container data-reveal>
         <h2 id="offer-contact-title">{content.closing.heading}</h2>
         {content.closing.paragraphs.length > 0 && <Prose paragraphs={content.closing.paragraphs} />}
         <ActionLink href="/contact/" className={styles.primary}>Start a conversation</ActionLink>

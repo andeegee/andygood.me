@@ -16,7 +16,7 @@ export default function ContactPage() {
     </header>
     <div className={styles.grid}>
       <ContactForm />
-      <aside className={styles.aside} aria-label="Other ways to get in touch">
+      <aside className={styles.aside} aria-label="Other ways to get in touch" data-reveal>
         <section>
           <h2>Prefer email?</h2>
           <a className={styles.email} href="mailto:letschat@andygood.me">letschat@andygood.me</a>

@@ -96,7 +96,7 @@ export default function HomePage() {
 
       <div className={styles.credibility}>
         <Container>
-          <dl className={styles.proofList}>
+          <dl className={styles.proofList} data-reveal-group>
             {credibility.map(({ heading, copy }) => (
               <div key={heading}>
                 <dt>{heading}</dt>
@@ -108,7 +108,7 @@ export default function HomePage() {
       </div>
 
       <Section aria-labelledby="problem-title">
-        <div className={styles.editorialSplit}>
+        <div className={styles.editorialSplit} data-reveal-group>
           <div className={styles.sectionIntro}>
             <p className={`${styles.eyebrow} section-eyebrow`}>The real problem</p>
             <h2 id="problem-title">Content problems rarely start with the content.</h2>
@@ -129,12 +129,12 @@ export default function HomePage() {
       </Section>
 
       <Section className={styles.offersSection} aria-labelledby="offers-title">
-        <header className={styles.sectionHeader}>
+        <header className={styles.sectionHeader} data-reveal>
           <p className={`${styles.eyebrow} section-eyebrow`}>Ways to work</p>
           <h2 id="offers-title">Different problems. Same objective.</h2>
           <p className={styles.intro}>Clearer thinking. Stronger content. Smarter systems.</p>
         </header>
-        <div>
+        <div data-reveal-group>
           {offers.map(({ slug, heading, copy }) => (
             <article key={slug} className={styles.offer} aria-labelledby={`${slug}-title`}>
               <h3 id={`${slug}-title`}>{heading}</h3>
@@ -146,11 +146,11 @@ export default function HomePage() {
       </Section>
 
       <Section aria-labelledby="work-title">
-        <header className={styles.sectionHeader}>
+        <header className={styles.sectionHeader} data-reveal>
           <p className={`${styles.eyebrow} section-eyebrow`}>Selected work</p>
           <h2 id="work-title">Proof, not promises.</h2>
         </header>
-        <div className={styles.workList}>
+        <div className={styles.workList} data-reveal-group>
           {projects.map(({ name, category, copy }, index) => (
             <article key={name} className={styles.project} aria-labelledby={`project-${index}-title`}>
               {/* A genuine project image can be added here in a figure. */}
@@ -166,7 +166,7 @@ export default function HomePage() {
       </Section>
 
       <Section className={styles.aiSection} aria-labelledby="ai-title">
-        <div className={styles.editorialSplit}>
+        <div className={styles.editorialSplit} data-reveal-group>
           <div className={styles.sectionIntro}>
             <p className={`${styles.eyebrow} section-eyebrow`}>AI, used properly</p>
             <h2 id="ai-title"><span>AI can make average work faster.</span>{" "}<span>That isn’t the goal.</span></h2>
@@ -181,7 +181,7 @@ export default function HomePage() {
       </Section>
 
       <Section aria-labelledby="about-title">
-        <div className={styles.editorialSplit}>
+        <div className={styles.editorialSplit} data-reveal-group>
           <div className={styles.sectionIntro}>
             <p className={`${styles.eyebrow} section-eyebrow`}>About Andy</p>
             <h2 id="about-title"><span>Built on marketing judgement.</span>{" "}<span>Not AI novelty.</span></h2>
@@ -198,7 +198,7 @@ export default function HomePage() {
       </Section>
 
       <Section className={styles.finalSection} aria-labelledby="contact-title">
-        <div className={styles.editorialSplit}>
+        <div className={styles.editorialSplit} data-reveal-group>
           <h2 id="contact-title">Got a content problem that feels harder than it should?</h2>
           <div className={styles.prose}>
             <p>Tell me what’s getting in the way. I’ll tell you whether I can help.</p>

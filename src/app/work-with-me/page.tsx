@@ -29,7 +29,7 @@ export default function WaysToWorkPage() {
       </Container>
     </section>
     {engagements.map((offer, index) => <section key={offer.href} className={`${styles.offer} ${index === 1 ? styles.dark : ""}`} aria-labelledby={`offer-${index + 1}`}>
-      <Container>
+      <Container data-reveal>
         <p className={`${styles.eyebrow} section-eyebrow`}>{offer.label}</p>
         <div className={styles.offerHeading}>
           <h2 id={`offer-${index + 1}`}>{offer.title}</h2>
@@ -55,7 +55,7 @@ export default function WaysToWorkPage() {
       </Container>
     </section>)}
     <section className={styles.boundary} aria-labelledby="boundary-title">
-      <Container>
+      <Container data-reveal>
         <p className={`${styles.eyebrow} section-eyebrow`}>A useful distinction</p>
         <div className={styles.boundaryGrid}>
           <h2 id="boundary-title">Strategy problem or systems problem?</h2>
@@ -68,15 +68,15 @@ export default function WaysToWorkPage() {
       </Container>
     </section>
     <section className={styles.principles} aria-labelledby="principles-title">
-      <Container>
+      <Container data-reveal>
         <h2 id="principles-title">Senior thinking. Practical involvement.</h2>
-        <div className={styles.principleGrid}>{principles.map(([title, copy]) => <div key={title}>
+        <div className={styles.principleGrid} data-reveal-group>{principles.map(([title, copy]) => <div key={title}>
           <h3>{title}</h3><p>{copy}</p>
         </div>)}</div>
       </Container>
     </section>
     <section className={`${styles.closing} ${styles.dark}`} aria-labelledby="conversation-title">
-      <Container>
+      <Container data-reveal>
         <h2 id="conversation-title">Not sure which one fits?</h2>
         <div className={styles.prose}>
           <p>Most good projects do not arrive neatly labelled.</p>
