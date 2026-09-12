@@ -68,7 +68,7 @@ const projects = [
     copy: "Led content strategy and digital marketing, designed and built the website, strengthened the company’s digital presence and helped secure contracts with Vinpearl Resort & Golf and TUI Blue.",
   },
   {
-    name: "Compassionate Inquiry",
+    name: "Compassionate Inquiry®",
     category: "Copy, campaigns & conversion",
     copy: "Campaign and lifecycle email, landing-page and marketing copy translating complex trauma-informed ideas into clear, human communication without flattening the nuance.",
   },
