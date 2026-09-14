@@ -36,4 +36,5 @@ export const launchPaths = [
   "/insights/b2b-saas-landing-page-not-converting/",
   "/insights/fractional-content-strategist/",
   "/insights/ai-content-systems/",
+  "/insights/measure-ai-search-visibility/",
 ];

@@ -15,7 +15,7 @@ const displayDate = (date: string) => new Intl.DateTimeFormat("en-GB", { day: "n
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const article = insightBySlug[(await params).article];
   if (!article) notFound();
-  const title = article.slug === "ai-seo-geo-aeo-2026" ? "AI SEO vs GEO vs AEO: What Matters in 2026 | Andy Good" : article.slug === "b2b-saas-landing-page-not-converting" ? "B2B SaaS Landing Page Not Converting? Fix This First" : article.slug === "fractional-content-strategist" ? "Fractional Content Strategist: When Do You Need One?" : "AI Content Systems: Build a Better AI Content Workflow";
+  const title = article.metaTitle ?? (article.slug === "ai-seo-geo-aeo-2026" ? "AI SEO vs GEO vs AEO: What Matters in 2026 | Andy Good" : article.slug === "b2b-saas-landing-page-not-converting" ? "B2B SaaS Landing Page Not Converting? Fix This First" : article.slug === "fractional-content-strategist" ? "Fractional Content Strategist: When Do You Need One?" : "AI Content Systems: Build a Better AI Content Workflow");
   return { title: { absolute: title }, description: article.description, alternates: { canonical: `/insights/${article.slug}/` }, robots: { index: isIndexable, follow: isIndexable }, openGraph: { type: "article", locale: site.locale, siteName: site.name, title, description: article.description, url: `/insights/${article.slug}/`, publishedTime: article.published, modifiedTime: article.updated ?? article.published, authors: ["Andy Good"] }, twitter: { card: "summary", title, description: article.description } };
 }
 
