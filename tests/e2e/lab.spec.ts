@@ -1,11 +1,15 @@
 import { test, expect } from "@playwright/test";
 
-test("AI Lab showcases both tools at their existing routes", async ({ page }, testInfo) => {
+test("AI Lab showcases all tools at their existing routes", async ({ page }, testInfo) => {
   await page.goto("/ai-lab/");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Practical Content + AI systems");
-  await expect(page.getByRole("article")).toHaveCount(2);
+  await expect(page.getByRole("article")).toHaveCount(3);
   await page.evaluate(() => document.fonts.ready);
   await page.screenshot({ path: testInfo.outputPath("lab.png"), fullPage: true });
+  await page.getByRole("link", { name: "Start the diagnostic", exact: true }).click();
+  await expect(page).toHaveURL(/\/lab\/content-workflow-diagnostic\/$/);
+  await expect(page.getByRole("button", { name: "Start the diagnostic", exact: true })).toBeVisible();
+  await page.goto("/ai-lab/");
   await page.getByRole("link", { name: "Run the free scan", exact: true }).click();
   await expect(page).toHaveURL(/\/website-friction-scan\/$/);
   await expect(page.getByRole("button", { name: "Scan my page", exact: true })).toBeVisible();

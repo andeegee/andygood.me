@@ -12,6 +12,12 @@ export default function AiLabPage() {
       <p className="hero-summary">Tools and working examples that show how I use AI to improve content, conversion and marketing workflows.</p>
     </header>
     <div className={styles.cards} data-reveal-group>
+      <article className={styles.card} aria-labelledby="diagnostic-title">
+        <p className={`${styles.label} section-eyebrow`}>Free tool</p>
+        <h2 id="diagnostic-title">Content Workflow Diagnostic</h2>
+        <p className={styles.description}>Find the biggest bottlenecks across strategy, knowledge, workflow, AI readiness and quality control.</p>
+        <ActionLink href="/lab/content-workflow-diagnostic/" variant="text">Start the diagnostic</ActionLink>
+      </article>
       <article className={styles.card} aria-labelledby="scan-title">
         <p className={`${styles.label} section-eyebrow`}>Free tool</p>
         <h2 id="scan-title">Website Friction Scan</h2>

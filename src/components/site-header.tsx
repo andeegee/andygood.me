@@ -28,7 +28,7 @@ export function SiteHeader() {
         <nav id="primary-navigation" className="primary-navigation" aria-label="Main" data-open={open}>
           <ul>
             {navigation.map(({ href, label }) => (
-              <li key={href}><Link href={href} aria-current={pathname === href || pathname.startsWith(href) ? "page" : undefined} onClick={() => setOpenPath(null)}>{label}</Link></li>
+              <li key={href}><Link href={href} aria-current={pathname === href || pathname.startsWith(href) || (href === "/ai-lab/" && pathname.startsWith("/lab/")) ? "page" : undefined} onClick={() => setOpenPath(null)}>{label}</Link></li>
             ))}
           </ul>
         </nav>

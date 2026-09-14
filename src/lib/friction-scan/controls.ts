@@ -13,12 +13,13 @@ export async function redis(command: (string | number)[]) {
   if (data.error) throw new ScanError("The scan service is temporarily unavailable. Please retry shortly.", 503);
   return data.result;
 }
-export async function rateLimit(request: Request, kind: "scan" | "email") {
+export async function rateLimit(request: Request, kind: "scan" | "email" | "diagnostic") {
   // Vercel overwrites x-vercel-forwarded-for. Do not trust arbitrary forwarded headers.
   const ip = process.env.VERCEL ? request.headers.get("x-vercel-forwarded-for") || "unknown" : "local";
   const script = "local n=redis.call('INCR',KEYS[1]); if n==1 then redis.call('EXPIRE',KEYS[1],ARGV[1]) end; return n";
-  const count = await redis(["EVAL", script, 1, `friction:${kind}:${fingerprint(ip)}`, 3600]);
-  if (Number(count) > (kind === "scan" ? 5 : 10)) throw new ScanError("You have reached the hourly limit. Please try again later.", 429);
+  const namespace = kind === "diagnostic" ? "diagnostic:lead" : `friction:${kind}`;
+  const count = await redis(["EVAL", script, 1, `${namespace}:${fingerprint(ip)}`, 3600]);
+  if (Number(count) > (kind === "email" ? 10 : 5)) throw new ScanError("You have reached the hourly limit. Please try again later.", 429);
   if (kind === "scan") {
     const total = await redis(["EVAL", script, 1, "friction:daily-scans", 86400]);
     if (Number(total) > 100) throw new ScanError("The scan has reached its daily capacity. Please try again tomorrow.", 429);
