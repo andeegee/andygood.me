@@ -30,6 +30,12 @@ export default function AiLabPage() {
         <p className={styles.description}>Turn assignments and source material into structured, evidence-led content briefs.</p>
         <ActionLink href="/ai-lab/content-briefing/" variant="text">View the demo</ActionLink>
       </article>
+      <article className={styles.card} aria-labelledby="readiness-title">
+        <p className={`${styles.label} section-eyebrow`}>Free tool</p>
+        <h2 id="readiness-title">AI Search Readiness Scan</h2>
+        <p className={styles.description}>See how well a page is structured to be understood, trusted and used by AI search systems.</p>
+        <ActionLink href="/ai-search-readiness-scan/" variant="text">Run the scan</ActionLink>
+      </article>
     </div>
   </Section>;
 }

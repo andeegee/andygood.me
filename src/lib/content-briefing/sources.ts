@@ -9,10 +9,15 @@ export function isPublicAddress(address: string) {
   try { return ipaddr.process(address).range() === "unicast"; } catch { return false; }
 }
 
-export async function fetchPage(raw: string, signal: AbortSignal, redirects = 0): Promise<{ body: string; type: string; url: string }> {
+export class PageFetchError extends Error {
+  constructor(public code: "blocked" | "unsupported" | "unavailable" | "size" | "redirects", message: string) { super(message); }
+}
+
+export async function fetchPage(raw: string, signal: AbortSignal, redirects = 0): Promise<{ body: string; type: string; url: string; robotsHeader?: string }> {
   const url = new URL(raw);
-  if (!["http:", "https:"].includes(url.protocol) || url.username || url.password || (url.port && !["80", "443"].includes(url.port))) throw new Error("Only standard public HTTP(S) URLs are supported.");
+  if (!["http:", "https:"].includes(url.protocol) || url.username || url.password || (url.port && !["80", "443"].includes(url.port))) throw new PageFetchError("blocked", "Only standard public HTTP(S) URLs are supported.");
   const host = url.hostname.replace(/^\[|\]$/g, "");
+  if (host === "localhost" || host.endsWith(".localhost")) throw new PageFetchError("blocked", "This URL does not resolve to a public address.");
   signal.throwIfAborted();
   let onAbort: () => void = () => {};
   const cancelled = new Promise<never>((_resolve, reject) => {
@@ -21,10 +26,10 @@ export async function fetchPage(raw: string, signal: AbortSignal, redirects = 0)
   });
   const addresses = await Promise.race([lookup(host, { all: true }), cancelled]).finally(() => signal.removeEventListener("abort", onAbort));
   signal.throwIfAborted();
-  if (!addresses.length || addresses.some((a) => !isPublicAddress(a.address))) throw new Error("This URL does not resolve to a public address.");
+  if (!addresses.length || addresses.some((a) => !isPublicAddress(a.address))) throw new PageFetchError("blocked", "This URL does not resolve to a public address.");
   // Pin the validated address to the socket, preventing a second DNS lookup/rebinding.
   const address = addresses[0];
-  const response = await new Promise<{ body: string; type: string; location?: string; status: number }>((resolve, reject) => {
+  const response = await new Promise<{ body: string; type: string; location?: string; status: number; robotsHeader?: string }>((resolve, reject) => {
     const req = (url.protocol === "https:" ? https : http).get(url, {
       signal, family: address.family, headers: { "User-Agent": "AndyGood-ContentBriefing/1.0", Accept: "text/html,text/plain", "Accept-Encoding": "identity" },
       lookup: (_hostname, _options, callback) => callback(null, address.address, address.family),
@@ -32,16 +37,17 @@ export async function fetchPage(raw: string, signal: AbortSignal, redirects = 0)
       const status = res.statusCode ?? 500;
       if (status >= 300 && status < 400 && res.headers.location) { res.destroy(); resolve({ body: "", type: "", location: res.headers.location, status }); return; }
       const type = res.headers["content-type"] ?? "";
-      if (status < 200 || status >= 300 || !/text\/(html|plain)|application\/xhtml\+xml/i.test(type)) { res.destroy(); reject(new Error("Page unavailable or unsupported format. Use pasted text for PDFs or restricted pages.")); return; }
+      if (status < 200 || status >= 300) { res.destroy(); reject(new PageFetchError("unavailable", "Page unavailable. Use pasted text for restricted pages.")); return; }
+      if (!/^(text\/(html|plain)|application\/xhtml\+xml)(\s*;|$)/i.test(type)) { res.destroy(); reject(new PageFetchError("unsupported", "Unsupported format. Use pasted text for PDFs.")); return; }
       let size = 0;
       const chunks: Buffer[] = [];
-      res.on("data", (chunk: Buffer) => { size += chunk.length; if (size > 2000000) { res.destroy(new Error("Page exceeds the 2 MB limit. Paste a relevant excerpt.")); } else chunks.push(chunk); });
+      res.on("data", (chunk: Buffer) => { size += chunk.length; if (size > 2000000) { res.destroy(new PageFetchError("size", "Page exceeds the 2 MB limit. Paste a relevant excerpt.")); } else chunks.push(chunk); });
       res.on("error", reject);
-      res.on("end", () => resolve({ body: Buffer.concat(chunks).toString("utf8"), type, status }));
+      res.on("end", () => resolve({ body: Buffer.concat(chunks).toString("utf8"), type, status, robotsHeader: String(res.headers["x-robots-tag"] || "") }));
     });
     req.on("error", reject);
   });
-  if (response.location) { if (redirects >= 3) throw new Error("Too many redirects."); return fetchPage(new URL(response.location, url).href, signal, redirects + 1); }
+  if (response.location) { if (redirects >= 3) throw new PageFetchError("redirects", "Too many redirects."); return fetchPage(new URL(response.location, url).href, signal, redirects + 1); }
   return { ...response, url: url.href };
 }
 

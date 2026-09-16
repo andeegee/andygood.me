@@ -35,6 +35,7 @@ The browser suite starts the production server on port 3000. Stop any other serv
 - `/work-with-me/ai-enabled-content-systems/`
 - `/ai-lab/`
 - `/website-friction-scan/`
+- `/ai-search-readiness-scan/` (setup and scoring in `docs/ai-search-readiness-scan.md`)
 - `/ai-lab/content-briefing/` (internal, noindex)
 - `/insights/`
 - `/insights/[article]/`

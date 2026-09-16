@@ -1,0 +1,18 @@
+.score { font-size: clamp(2.75rem, 8vw, 4rem); font-weight: 700; line-height: 1.15; }
+.score span { font-size: 1.25rem; font-weight: 400; color: var(--slate); }
+.breakdown { list-style: none; padding: 0; margin: 0; display: grid; }
+.factor { padding: .9rem 0 .9rem .75rem; border-bottom: 1px solid var(--steel); border-left: 3px solid transparent; }
+.weakest { border-left-color: var(--signal-yellow); }
+.factor > div:first-child { display: flex; justify-content: space-between; gap: 1rem; align-items: baseline; }
+.factor > div:first-child > span { min-width: 0; overflow-wrap: anywhere; }
+.factor strong { white-space: nowrap; font-weight: 600; }
+.track { height: 3px; background: var(--fog); margin-top: .65rem; }
+.track span { display: block; height: 100%; background: var(--carbon); }
+.detail { display: grid; gap: .75rem; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--steel); }
+.detail:first-of-type { border-top: 0; padding-top: 0; }
+.opportunity { border-left: 3px solid var(--signal-yellow); padding-left: 1rem; }
+.opportunity p + p { margin-top: .75rem; }
+.list { padding-left: 1.5rem; margin: 0; display: grid; gap: 1.25rem; }
+.list li > p { margin-top: .5rem; }
+.delivery { display: grid; gap: .75rem; padding: 1rem; background: var(--fog); }
+.delivery button { justify-self: start; }

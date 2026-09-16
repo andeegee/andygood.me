@@ -13,20 +13,21 @@ export async function redis(command: (string | number)[]) {
   if (data.error) throw new ScanError("The scan service is temporarily unavailable. Please retry shortly.", 503);
   return data.result;
 }
-export async function rateLimit(request: Request, kind: "scan" | "email" | "diagnostic") {
+export async function rateLimit(request: Request, kind: "scan" | "email" | "diagnostic" | "readiness" | "readiness-email" | "readiness-status") {
   // Vercel overwrites x-vercel-forwarded-for. Do not trust arbitrary forwarded headers.
   const ip = process.env.VERCEL ? request.headers.get("x-vercel-forwarded-for") || "unknown" : "local";
   const script = "local n=redis.call('INCR',KEYS[1]); if n==1 then redis.call('EXPIRE',KEYS[1],ARGV[1]) end; return n";
-  const namespace = kind === "diagnostic" ? "diagnostic:lead" : `friction:${kind}`;
+  const namespace = kind === "diagnostic" ? "diagnostic:lead" : kind.startsWith("readiness") ? kind : `friction:${kind}`;
   const count = await redis(["EVAL", script, 1, `${namespace}:${fingerprint(ip)}`, 3600]);
-  if (Number(count) > (kind === "email" ? 10 : 5)) throw new ScanError("You have reached the hourly limit. Please try again later.", 429);
-  if (kind === "scan") {
-    const total = await redis(["EVAL", script, 1, "friction:daily-scans", 86400]);
+  if (Number(count) > (kind === "readiness-status" ? 120 : kind === "email" || kind === "readiness-email" ? 10 : 5)) throw new ScanError("You have reached the hourly limit. Please try again later.", 429);
+  if (kind === "scan" || kind === "readiness") {
+    const total = await redis(["EVAL", script, 1, kind === "readiness" ? "readiness:daily-scans" : "friction:daily-scans", 86400]);
     if (Number(total) > 100) throw new ScanError("The scan has reached its daily capacity. Please try again tomorrow.", 429);
   }
 }
-export function ensureConfigured() {
-  if (process.env.FRICTION_SCAN_ENABLED !== "true" || !(process.env.FRICTION_SCAN_API_KEY || process.env.CONTENT_BRIEFING_API_KEY) || !(process.env.FRICTION_SCAN_MODEL || process.env.CONTENT_BRIEFING_MODEL) || !/^[a-f0-9]{64}$/i.test(process.env.FRICTION_SCAN_TOKEN_SECRET || "") || !process.env.FRICTION_SCAN_REDIS_URL || !process.env.FRICTION_SCAN_REDIS_TOKEN) throw new ScanError("The scan is not available yet. Please try again later.", 503);
+export function ensureConfigured(tool: "friction" | "readiness" = "friction") {
+  const enabled = tool === "readiness" ? process.env.AI_SEARCH_READINESS_ENABLED : process.env.FRICTION_SCAN_ENABLED;
+  if (enabled !== "true" || !(process.env.FRICTION_SCAN_API_KEY || process.env.CONTENT_BRIEFING_API_KEY) || !(process.env.FRICTION_SCAN_MODEL || process.env.CONTENT_BRIEFING_MODEL) || !/^[a-f0-9]{64}$/i.test(process.env.FRICTION_SCAN_TOKEN_SECRET || "") || !process.env.FRICTION_SCAN_REDIS_URL || !process.env.FRICTION_SCAN_REDIS_TOKEN) throw new ScanError("The scan is not available yet. Please try again later.", 503);
 }
 export async function readBody(request: Request, limit: number) {
   if (request.headers.get("origin") && request.headers.get("origin") !== new URL(request.url).origin) throw new ScanError("Please submit the form from this website.", 403);

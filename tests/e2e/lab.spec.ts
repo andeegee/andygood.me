@@ -3,7 +3,7 @@ import { test, expect } from "@playwright/test";
 test("AI Lab showcases all tools at their existing routes", async ({ page }, testInfo) => {
   await page.goto("/ai-lab/");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Practical Content + AI systems");
-  await expect(page.getByRole("article")).toHaveCount(3);
+  await expect(page.getByRole("article")).toHaveCount(4);
   await page.evaluate(() => document.fonts.ready);
   await page.screenshot({ path: testInfo.outputPath("lab.png"), fullPage: true });
   await page.getByRole("link", { name: "Start the diagnostic", exact: true }).click();
@@ -17,6 +17,10 @@ test("AI Lab showcases all tools at their existing routes", async ({ page }, tes
   await page.getByRole("link", { name: "View the demo", exact: true }).click();
   await expect(page).toHaveURL(/\/ai-lab\/content-briefing\/$/);
   await expect(page.getByRole("button", { name: "Generate draft brief", exact: true })).toBeVisible();
+  await page.goto("/ai-lab/");
+  await page.getByRole("link", { name: "Run the scan", exact: true }).click();
+  await expect(page).toHaveURL(/\/ai-search-readiness-scan\/$/);
+  await expect(page.getByRole("button", { name: "Run the scan", exact: true })).toBeVisible();
   await page.goto("/ai-lab/");
   await page.setViewportSize({ width: 320, height: 900 });
   await page.addStyleTag({ content: "html { font-size: 200%; }" });
