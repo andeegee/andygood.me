@@ -5,11 +5,10 @@ import styles from "./work-with-me.module.css";
 
 export const metadata = pageMetadata("Ways to Work", "/work-with-me/", "Work with Senior Content & AI Strategist Andy Good on messaging and conversion strategy, fractional content leadership or AI-enabled content systems.");
 
-const principles = [
-  ["Diagnose before prescribing", "I do not arrive with a preferred tool, tactic or deliverable. We work out what is actually causing the problem first."],
-  ["Stay close to the commercial objective", "Content only matters if it helps the business communicate, convert, grow or operate better."],
-  ["Get hands-on where it adds value", "Strategy should not mean standing at a distance from the work. If direct involvement materially improves the outcome, I get involved."],
-  ["Use AI where it earns its place", "Not because the project needs an AI label. Because it genuinely improves the way the work gets done."],
+const involvement = [
+  ["Strategic projects", "I can get hands-on with copy or content when it is strategically important to solving the defined commercial problem."],
+  ["Fractional support", "The work stays focused on ongoing senior direction, prioritisation, ownership and oversight, not routine production."],
+  ["Content systems", "Hands-on work is used to prototype, test and validate the system with real content, not to become the production team."],
 ];
 
 export default function WaysToWorkPage() {
@@ -19,63 +18,59 @@ export default function WaysToWorkPage() {
         <p className={`${styles.eyebrow} section-eyebrow`}>Ways to work</p>
         <h1 id="ways-title">The problem decides the shape of the work.</h1>
         <div className={styles.heroCopy}>
-          <div className={styles.prose}>
-            <p>Sometimes you need a focused strategic intervention.</p>
-            <p>Sometimes you need senior thinking in the room on an ongoing basis.</p>
-            <p>And sometimes the real problem is the system behind the content.</p>
-          </div>
-          <p className={styles.heroConclusion}>Three ways to work with me. One objective: better commercial decisions and better work.</p>
+          <p>Different commercial problems need different kinds of intervention: a focused strategic project, ongoing senior direction or a redesign of the content system behind the work.</p>
+          <p className={styles.heroConclusion}>Start with what is getting in the way. We can diagnose the right engagement from there.</p>
         </div>
       </Container>
     </section>
-    {engagements.map((offer, index) => <section key={offer.href} className={`${styles.offer} ${index === 1 ? styles.dark : ""}`} aria-labelledby={`offer-${index + 1}`}>
-      <Container data-reveal>
-        <p className={`${styles.eyebrow} section-eyebrow`}>{offer.label}</p>
-        <div className={styles.offerHeading}>
-          <h2 id={`offer-${index + 1}`}>{offer.title}</h2>
-          <div className={styles.lead}>{offer.lead.map(p => <p key={p}>{p}</p>)}</div>
-        </div>
-        <div className={styles.offerBody}>
-          <div>
-            <div className={styles.prose}>{offer.body.map(p => <p key={p}>{p}</p>)}</div>
-            <div className={styles.note}>
-              {offer.noteTitle && <h3>{offer.noteTitle}</h3>}
-              {offer.note.map(p => <p key={p}>{p}</p>)}
-            </div>
-          </div>
-          <div className={styles.scope}>
-            <h3>Typical scope</h3>
-            <ul>{offer.scope.map(item => <li key={item}>{item}</li>)}</ul>
-          </div>
-        </div>
-        <div className={styles.offerFooter}>
-          <p><strong>Best for:</strong> {offer.best}</p>
-          <ActionLink href={offer.href} variant="secondary" className={styles.offerLink}>{offer.cta}</ActionLink>
+
+    <section className={styles.selector} aria-labelledby="selector-title">
+      <Container>
+        <header className={styles.sectionHeader} data-reveal>
+          <p className={`${styles.eyebrow} section-eyebrow`}>Choose by problem</p>
+          <h2 id="selector-title">What is getting in the way right now?</h2>
+          <p>You do not need to diagnose the engagement. Pick the situation that sounds closest.</p>
+        </header>
+        <div className={styles.engagements} data-reveal-group>
+          {engagements.map((engagement, index) => <article key={engagement.href} className={styles.engagement} aria-labelledby={`engagement-${index + 1}`}>
+            <p className={styles.label}>{engagement.label}</p>
+            <h3 id={`engagement-${index + 1}`}>{engagement.title}</h3>
+            <p className={styles.summary}>{engagement.copy}</p>
+            <ul>{engagement.symptoms.map(symptom => <li key={symptom}>{symptom}</li>)}</ul>
+            <p className={styles.offerName}>{engagement.offer}</p>
+            <ActionLink href={engagement.href} variant="secondary">{engagement.cta}</ActionLink>
+          </article>)}
         </div>
       </Container>
-    </section>)}
+    </section>
+
     <section className={styles.boundary} aria-labelledby="boundary-title">
       <Container data-reveal>
         <p className={`${styles.eyebrow} section-eyebrow`}>A useful distinction</p>
         <div className={styles.boundaryGrid}>
           <h2 id="boundary-title">Strategy problem or systems problem?</h2>
-          <div className={styles.prose}>
-            <p>Fractional strategy can identify and oversee improvements to how the team works.</p>
-            <p>But when the work becomes a substantial audit, redesign or implementation of the content operating system, it becomes an AI-Enabled Content Systems engagement.</p>
-            <p className={styles.secondary}>And if the primary problem is broader business operations rather than content, marketing, messaging or growth, that work belongs under <a className="accent-link" href="https://allmi.online">allmi</a>.</p>
+          <div className={styles.boundaryChoices}>
+            <div><h3>Choose fractional support</h3><p>When the team needs ongoing senior direction, prioritisation, ownership and oversight.</p></div>
+            <div><h3>Choose content systems</h3><p>When the work needs a substantial audit, redesign or implementation of the content operating system.</p></div>
+            <p className={styles.secondary}>If the primary problem is broader business operations rather than content, marketing, messaging or growth, that work belongs under <a className="accent-link" href="https://allmi.online">allmi</a>.</p>
           </div>
         </div>
       </Container>
     </section>
-    <section className={styles.principles} aria-labelledby="principles-title">
+
+    <section className={styles.involvement} aria-labelledby="involvement-title">
       <Container data-reveal>
-        <h2 id="principles-title">Senior thinking. Practical involvement.</h2>
-        <div className={styles.principleGrid} data-reveal-group>{principles.map(([title, copy]) => <div key={title}>
+        <div className={styles.involvementIntro}>
+          <h2 id="involvement-title">Senior thinking. Practical involvement.</h2>
+          <p>I work at strategy level, but stay close enough to the work to improve the outcome. The balance changes with the problem.</p>
+        </div>
+        <div className={styles.involvementGrid} data-reveal-group>{involvement.map(([title, copy]) => <div key={title}>
           <h3>{title}</h3><p>{copy}</p>
         </div>)}</div>
       </Container>
     </section>
-    <section className={`${styles.closing} ${styles.dark}`} aria-labelledby="conversation-title">
+
+    <section className={styles.closing} aria-labelledby="conversation-title">
       <Container data-reveal>
         <h2 id="conversation-title">Not sure which one fits?</h2>
         <div className={styles.prose}>
