@@ -47,7 +47,7 @@
 .closing :global(:focus-visible) { outline-color: var(--signal-yellow); }
 
 @media (min-width: 64rem) {
-  .offerName { margin-top: auto; }
+  .engagement ul { flex-grow: 1; }
 }
 
 @media (max-width: 63.99rem) {
