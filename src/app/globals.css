@@ -66,6 +66,8 @@ nav a[aria-current="page"] { text-decoration-thickness: 3px; }
 .site-footer { padding-block: var(--space-8); border-top: 1px solid var(--steel); }
 .footer-inner { display: flex; justify-content: space-between; align-items: start; flex-wrap: wrap; gap: var(--space-6); }
 .site-footer nav a { font-size: var(--text-small); color: var(--slate); }
+.footer-linkedin { gap: var(--space-2); }
+.footer-linkedin svg { width: 1rem; height: 1rem; flex: 0 0 auto; fill: currentColor; }
 .action { min-height: 2.75rem; display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2); padding: var(--space-3) var(--space-6); border: 1px solid transparent; font-weight: 600; text-align: center; text-decoration: none; line-height: 1.4; }
 .action--primary { color: var(--carbon); background: var(--signal-yellow); }
 .action--primary:hover { background: var(--carbon); color: var(--white); }
